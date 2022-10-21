@@ -1,16 +1,21 @@
 import React, { useState } from "react";
-import "./App.css";
-import { useSelector, useDispatch } from "react-redux"
-import { RootState } from "./app/store";
+import { useGetEmissionProductsQuery } from "./app/services/api";
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home/Home";
+import "./App.scss";
 
-function App() {
+function App(): JSX.Element {
 
+  const { data, isLoading } = useGetEmissionProductsQuery();
 
+  console.log(data);
 
   return (
-    <>
-      Ciao
-    </>
+
+    <Routes>
+      <Route path="/" element={<Home />} />
+    </Routes>
+
   )
 }
 

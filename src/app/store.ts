@@ -1,9 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { emissionAPI } from "./services/api";
+
 
 export const store = configureStore({
    reducer: {
+      [emissionAPI.reducerPath]: emissionAPI.reducer,
+   },
 
-   }
+   middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(emissionAPI.middleware)
 })
 
 
