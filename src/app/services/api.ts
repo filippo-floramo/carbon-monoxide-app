@@ -4,12 +4,12 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const emissionAPI = createApi({
    reducerPath: 'emissionAPI',
-   baseQuery: fetchBaseQuery({ baseUrl: 'https://api.v2.emissions-api.org/api/v2/' }),
+   baseQuery: fetchBaseQuery({ baseUrl: 'https://pkgstore.datahub.io/' }),
    endpoints: (build) => ({
-      getEmissionProducts: build.query<any, void>({
-         query: () => `products.json`
+      getEmissionCountries: build.query<any, void>({
+         query: () => `/core/country-list/data_json/data/8c458f2d15d9f2119654b29ede6e45b8/data_json.json`
       }),
    }),
 });
 
-export const { useGetEmissionProductsQuery } = emissionAPI;
+export const { useGetEmissionCountriesQuery } = emissionAPI;
