@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { useGetEmissionCountriesQuery } from "../../app/services/api/api";
 import { useDispatch, useSelector } from "react-redux";
-import { getCountryCode } from "../../app/features/inputSlice";
-import { RootState } from "../../app/store";
+import { RootState } from "../../../app/store";
 
-import Select from "react-select"
+import Select from "react-select";
+import ModalSelect from "../ModalSelect/ModalSelect";
 
 import TextField from '@mui/material/TextField';
 import dayjs, { Dayjs } from 'dayjs';
@@ -17,19 +16,6 @@ export default function ModalIndex(): JSX.Element {
 
    const [value, setValue] = useState<Dayjs | null>(dayjs('2022-05-09'));
 
-   const dispatch = useDispatch();
-
-   const { data, isLoading } = useGetEmissionCountriesQuery();
-
-   if (isLoading) {
-
-      return <>Ciao</>
-   }
-
-
-   const managedData = data.map((item: any) => {
-      return { label: `${item.Name}, ${item.Code} `, value: item.Code }
-   })
 
    console.log(value?.toJSON());
 
@@ -37,16 +23,9 @@ export default function ModalIndex(): JSX.Element {
       <>
          <div className="backdrop">
             <div className="modal--container">
-               <Select
-                  classNamePrefix="select"
-                  className="country--select"
-                  placeholder="Select a country..."
-                  defaultValue={managedData[0]}
-                  onChange={(value: { label: string }) => dispatch(getCountryCode(value.label))}
-                  name="country"
-                  isSearchable={true}
-                  options={managedData}
-               />
+
+               <ModalSelect />
+
                <div className="geo--input">
                   <TextField id="filled-basic" label="Filled" variant="filled" />
                   <TextField id="filled-basic" label="Filled" variant="filled" />

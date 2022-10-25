@@ -1,22 +1,22 @@
-import React from "react";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
 
 const initialState = {
    value: {
-      country: "Italy, IT",
-      longitude: "",
-      latitude: "",
+      country: "",
+      coordinates: {
+         longitude: "",
+         latitude: "",
+      },
       startDate: "",
       endDate: "",
    }
 }
 
-export const inputSlice = createSlice({
+export const modalSlice = createSlice({
    name: "inputs",
    initialState,
    reducers: {
-      getCountryCode: (state, action: PayloadAction<string>) => {
+      addCountryCode: (state, action: PayloadAction<string>) => {
 
          let countryCode = action.payload.match(/[A-Z]+/g)?.pop();
 
@@ -28,6 +28,6 @@ export const inputSlice = createSlice({
    }
 });
 
-export const { getCountryCode } = inputSlice.actions
+export const { addCountryCode } = modalSlice.actions
 
-export default inputSlice.reducer
+export default modalSlice.reducer

@@ -1,5 +1,5 @@
 import React from "react";
-import ModalIndex from "../../components/ModalIndex/ModalIndex";
+import ModalIndex from "../../components/Modal/ModalIndex/ModalIndex";
 
 
 export default function Home(): JSX.Element {
