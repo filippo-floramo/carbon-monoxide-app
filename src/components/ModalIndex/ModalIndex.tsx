@@ -1,8 +1,12 @@
 import React, { useState } from "react";
-import { useGetEmissionCountriesQuery } from "../../app/services/api";
+import { useGetEmissionCountriesQuery } from "../../app/services/api/api";
+import { useDispatch, useSelector } from "react-redux";
+import { addCountry } from "../../app/features/inputSlice";
+import { RootState } from "../../app/store";
+
+import Select from "react-select"
 
 import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
 import dayjs, { Dayjs } from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -13,6 +17,8 @@ export default function ModalIndex(): JSX.Element {
 
    const [value, setValue] = useState<Dayjs | null>(dayjs('2022-05-09'));
 
+   const country = useSelector((state: RootState) => state.input.value.country);
+   const dispatch = useDispatch();
    const { data, isLoading } = useGetEmissionCountriesQuery();
 
    if (isLoading) {
@@ -20,28 +26,25 @@ export default function ModalIndex(): JSX.Element {
       return <>Ciao</>
    }
 
-   // console.log(data)
 
    const managedData = data.map((item: any) => {
-      return `${item.Name}, ${item.Code}`
+      return { label: `${item.Name}, ${item.Code} `, value: item.Code }
    })
 
-
-   // console.log(managedData);
-
+   console.log(value?.toJSON());
 
    return (
       <>
          <div className="backdrop">
             <div className="modal--container">
-               <Autocomplete
-                  className="autocomplete"
-                  size="medium"
-                  disablePortal
-                  id="combo-box-demo"
+               <Select
+                  classNamePrefix="select"
+                  className="country--select"
+                  defaultValue={managedData[0]}
+                  onChange={(value: { label: string }) => dispatch(addCountry(value.label))}
+                  name="country"
+                  isSearchable={true}
                   options={managedData}
-                  sx={{ width: 200, }}
-                  renderInput={(params) => <TextField {...params} label="State" />}
                />
                <div className="geo--input">
                   <TextField id="filled-basic" label="Filled" variant="filled" />
@@ -69,7 +72,6 @@ export default function ModalIndex(): JSX.Element {
                         renderInput={(params) => <TextField {...params} />}
                      />
                   </LocalizationProvider>
-
                </div>
             </div>
          </div>

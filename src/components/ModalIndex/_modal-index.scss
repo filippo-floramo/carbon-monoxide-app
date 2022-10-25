@@ -19,6 +19,10 @@
       padding: 60px;
       background-color: white;
 
+      .country--select {
+         min-width: 200px;
+      }
+
       .geo--input {
          display: flex;
          gap: 20px;

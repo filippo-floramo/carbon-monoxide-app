@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useGetEmissionCountriesQuery} from "./app/services/api";
+import { useGetEmissionCountriesQuery} from "./app/services/api/api";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import "./App.scss";
