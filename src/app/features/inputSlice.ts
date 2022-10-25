@@ -16,13 +16,18 @@ export const inputSlice = createSlice({
    name: "inputs",
    initialState,
    reducers: {
-      addCountry: (state, action: PayloadAction<string>) => {
-         state.value.country = action.payload
+      getCountryCode: (state, action: PayloadAction<string>) => {
+
+         let countryCode = action.payload.match(/[A-Z]+/g)?.pop();
+
+         state.value.country = countryCode ? countryCode : "";
+
          console.log(state.value.country);
+         console.log(countryCode);
       },
    }
 });
 
-export const { addCountry } = inputSlice.actions
+export const { getCountryCode } = inputSlice.actions
 
 export default inputSlice.reducer

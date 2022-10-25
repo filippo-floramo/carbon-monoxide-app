@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useGetEmissionCountriesQuery } from "../../app/services/api/api";
 import { useDispatch, useSelector } from "react-redux";
-import { addCountry } from "../../app/features/inputSlice";
+import { getCountryCode } from "../../app/features/inputSlice";
 import { RootState } from "../../app/store";
 
 import Select from "react-select"
@@ -17,8 +17,8 @@ export default function ModalIndex(): JSX.Element {
 
    const [value, setValue] = useState<Dayjs | null>(dayjs('2022-05-09'));
 
-   const country = useSelector((state: RootState) => state.input.value.country);
    const dispatch = useDispatch();
+
    const { data, isLoading } = useGetEmissionCountriesQuery();
 
    if (isLoading) {
@@ -40,8 +40,9 @@ export default function ModalIndex(): JSX.Element {
                <Select
                   classNamePrefix="select"
                   className="country--select"
+                  placeholder="Select a country..."
                   defaultValue={managedData[0]}
-                  onChange={(value: { label: string }) => dispatch(addCountry(value.label))}
+                  onChange={(value: { label: string }) => dispatch(getCountryCode(value.label))}
                   name="country"
                   isSearchable={true}
                   options={managedData}
