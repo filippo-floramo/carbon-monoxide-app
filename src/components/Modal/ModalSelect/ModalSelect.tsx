@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import Select from "react-select"
 import { useDispatch } from "react-redux";
-import { SkipToken } from "@reduxjs/toolkit/dist/query";
-import { useGetEmissionCountriesQuery, } from "../../../app/services/api/api";
-import { addCountryCode } from "../../../app/features/modalSlice";
-import { skipToken } from "@reduxjs/toolkit/dist/query";
+import { useGetEmissionCountriesQuery, } from "../../../store/services/api/api";
+import { addCountryCode } from "../../../store/features/modalSlice";
 
 
 export default function ModalSelect() {
@@ -15,7 +13,7 @@ export default function ModalSelect() {
 
 
    if (isLoading) {
-      return <div>Ciao</div>
+      return <div>Loading...</div>
    }
 
    const managedData = data.map((item: { Name: string, Code: string }) => {
@@ -24,15 +22,17 @@ export default function ModalSelect() {
 
 
    return (
-      <Select
-         classNamePrefix="select"
-         className="country--select"
-         placeholder="Select a country..."
-         defaultValue={managedData[0]}
-         onChange={(value: { label: string }) => dispatch(addCountryCode(value.label))}
-         name="country"
-         isSearchable={true}
-         options={managedData}
-      />
+      <>
+         <Select
+            name="country"
+            classNamePrefix="select"
+            className="country--select"
+            placeholder="Select a country..."
+            defaultValue={managedData[0]}
+            onChange={(value: { label: string }) => dispatch(addCountryCode(value.label))}
+            isSearchable={true}
+            options={managedData}
+         />
+      </>
    )
 }
