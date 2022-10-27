@@ -17,7 +17,7 @@ export default function ModalSelect() {
    }
 
    const managedData = data.map((item: { Name: string, Code: string }) => {
-      return { label: `${item.Name}, ${item.Code} `, value: item.Code }
+      return { label: item.Name, value: item.Code }
    })
 
 
@@ -27,9 +27,9 @@ export default function ModalSelect() {
             name="country"
             classNamePrefix="select"
             className="country--select"
-            placeholder="Select a country..."
-            defaultValue={managedData[0]}
-            onChange={(value: { label: string }) => dispatch(addCountryCode(value.label))}
+            placeholder="Search"
+            defaultValue={" "}
+            onChange={(country: any) => dispatch(addCountryCode(country.value))}
             isSearchable={true}
             options={managedData}
          />
