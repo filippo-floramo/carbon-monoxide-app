@@ -5,6 +5,7 @@ import { useGetEmissionCountriesQuery, } from "../../../store/services/api/api";
 import { addCountryCode } from "../../../store/features/modalSlice";
 
 
+
 export default function ModalSelect() {
 
    interface DataTypes {
@@ -37,8 +38,13 @@ export default function ModalSelect() {
             className="country--select"
             placeholder="Search"
             defaultValue={" "}
-            onChange={(country: SelectTypes) => { if (typeof (country) !== "string") dispatch(addCountryCode(country?.value)) }}
+            onChange={(country: SelectTypes) => {
+               if (typeof (country) !== "string") {
+                  dispatch(addCountryCode(country?.value));
+               }
+            }}
             isSearchable={true}
+            isClearable={true}
             options={managedData}
          />
       </>

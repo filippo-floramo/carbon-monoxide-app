@@ -7,14 +7,34 @@ import { RootState } from "../../../store/store";
 
 
 export default function ModalTextFields(): JSX.Element {
+
    const dispatch = useDispatch();
    const latitude = useSelector((state: RootState) => state.input.value.latitude)
    const longitude = useSelector((state: RootState) => state.input.value.longitude)
 
    return (
       <>
-         <TextField id="latitude" size="small" value={latitude || ""} onChange={e => dispatch(addCoordinates({ id: e.target.id, value: e.target.value }))} placeholder="Latitude" variant="filled" />
-         <TextField id="longitude" size="small" value={longitude || ""} onChange={e => dispatch(addCoordinates({ id: e.target.id, value: e.target.value }))} variant="filled" placeholder="Longitude" />
+         <TextField
+            id="latitude"
+            placeholder="Latitude"
+            size="small"
+            variant="filled"
+            value={latitude || ""}
+            onChange={(e) => {
+               dispatch(addCoordinates({ id: e.target.id, value: e.target.value }));
+            }}
+         />
+         <TextField
+            id="longitude"
+            placeholder="Longitude"
+            size="small"
+            variant="filled"
+            value={longitude || ""}
+            onChange={(e) => {
+               dispatch(addCoordinates({ id: e.target.id, value: e.target.value }));
+
+            }}
+         />
       </>
    )
 }
