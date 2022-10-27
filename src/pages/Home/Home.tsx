@@ -7,8 +7,8 @@ export default function Home(): JSX.Element {
       <>
          <div className="home">
 
-            <h1>Ciao come va?</h1>
-            <button>Boh dimmi te</button>
+            <h1>Hello Project</h1>
+            <button>Click Me</button>
             <ModalIndex />
          </div>
       </>
