@@ -6,8 +6,8 @@ interface InputTypes {
 
       longitude: string | undefined
       latitude: string | undefined
-      startDate: JSON | undefined;
-      endDate: JSON | undefined;
+      startDate: string | undefined;
+      endDate: string | undefined;
    }
 }
 
@@ -33,6 +33,7 @@ export const modalSlice = createSlice({
       },
 
       addCoordinates: (state, action: PayloadAction<{ id: string, value: string }>) => {
+         
          switch (action.payload.id) {
             case "longitude":
                state.value.longitude = action.payload.value
@@ -47,11 +48,11 @@ export const modalSlice = createSlice({
          console.log(state.value.latitude);
          console.log(state.value.longitude);
       },
-      addStartDate: (state, action: PayloadAction<JSON>) => {
+      addStartDate: (state, action: PayloadAction<string>) => {
          state.value.startDate = action.payload
 
       },
-      addEndDate: (state, action: PayloadAction<JSON>) => {
+      addEndDate: (state, action: PayloadAction<string>) => {
          state.value.endDate = action.payload
       }
    }

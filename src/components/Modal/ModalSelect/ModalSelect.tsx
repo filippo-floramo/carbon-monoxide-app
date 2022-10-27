@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Select from "react-select"
 import { useDispatch } from "react-redux";
 import { useGetEmissionCountriesQuery, } from "../../../store/services/api/api";
@@ -6,6 +6,14 @@ import { addCountryCode } from "../../../store/features/modalSlice";
 
 
 export default function ModalSelect() {
+
+   interface DataTypes {
+      label: string
+      value: string
+   }
+
+   type SelectTypes = DataTypes | string | null
+
 
    const dispatch = useDispatch();
 
@@ -16,9 +24,9 @@ export default function ModalSelect() {
       return <div>Loading...</div>
    }
 
-   const managedData = data.map((item: { Name: string, Code: string }) => {
+   const managedData = data.map((item: { Name: string, Code: string }): DataTypes => {
       return { label: item.Name, value: item.Code }
-   })
+   });
 
 
    return (
@@ -29,7 +37,7 @@ export default function ModalSelect() {
             className="country--select"
             placeholder="Search"
             defaultValue={" "}
-            onChange={(country: any) => dispatch(addCountryCode(country.value))}
+            onChange={(country: SelectTypes) => { if (typeof (country) !== "string") dispatch(addCountryCode(country?.value)) }}
             isSearchable={true}
             options={managedData}
          />

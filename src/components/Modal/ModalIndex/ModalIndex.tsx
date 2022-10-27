@@ -4,11 +4,11 @@ import ModalSelect from "../ModalSelect/ModalSelect";
 import ModalTextFields from "../ModalTextFields/ModalTextFields";
 import ModalDatePickers from "../ModalDatePickers/ModalDatePickers";
 
-
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
 
 export default function ModalIndex(): JSX.Element {
-
-
+   const reduxState = useSelector((state: RootState) => state.input.value)
    return (
       <>
          <div className="backdrop">
@@ -28,6 +28,9 @@ export default function ModalIndex(): JSX.Element {
                   <p>Pick the date Range</p>
                   <ModalDatePickers />
                </div>
+               <button onClick={() => {
+                  console.log(reduxState)
+               }}>Click Me</button>
             </div>
          </div>
       </>
