@@ -1,14 +1,24 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState = {
+interface InputTypes {
    value: {
-      country: "",
-      coordinates: {
-         longitude: "",
-         latitude: "",
-      },
-      startDate: "",
-      endDate: "",
+      countryCode: string | undefined;
+
+      longitude: string | undefined
+      latitude: string | undefined
+      startDate: JSON | undefined;
+      endDate: JSON | undefined;
+   }
+}
+
+
+const initialState: InputTypes = {
+   value: {
+      countryCode: undefined,
+      longitude: undefined,
+      latitude: undefined,
+      startDate: undefined,
+      endDate: undefined,
    }
 }
 
@@ -16,18 +26,37 @@ export const modalSlice = createSlice({
    name: "inputs",
    initialState,
    reducers: {
-      addCountryCode: (state, action: PayloadAction<string>) => {
+      addCountryCode: (state, action: PayloadAction<string | undefined>) => {
 
-         let countryCode = action.payload.match(/[A-Z]+/g)?.pop();
-
-         state.value.country = countryCode ? countryCode : "";
-
-         console.log(state.value.country);
-         console.log(countryCode);
+         state.value.countryCode = action.payload
+         console.log(state.value.countryCode);
       },
+
+      addCoordinates: (state, action: PayloadAction<{ id: string, value: string }>) => {
+         switch (action.payload.id) {
+            case "longitude":
+               state.value.longitude = action.payload.value
+               break;
+            case "latitude":
+               state.value.latitude = action.payload.value
+               break;
+            default:
+               console.log("Input field not found");
+         };
+
+         console.log(state.value.latitude);
+         console.log(state.value.longitude);
+      },
+      addStartDate: (state, action: PayloadAction<JSON>) => {
+         state.value.startDate = action.payload
+
+      },
+      addEndDate: (state, action: PayloadAction<JSON>) => {
+         state.value.endDate = action.payload
+      }
    }
 });
 
-export const { addCountryCode } = modalSlice.actions
+export const { addCountryCode, addCoordinates, addEndDate, addStartDate } = modalSlice.actions
 
 export default modalSlice.reducer
