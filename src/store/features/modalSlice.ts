@@ -10,7 +10,6 @@ interface InputTypes {
    }
 }
 
-
 const initialState: InputTypes = {
    value: {
       countryCode: undefined,
