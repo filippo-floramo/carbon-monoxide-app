@@ -4,6 +4,7 @@ import { RootState } from "../../../store/store";
 import ModalSelect from "../ModalSelect/ModalSelect";
 import ModalTextFields from "../ModalTextFields/ModalTextFields";
 import ModalDatePickers from "../ModalDatePickers/ModalDatePickers";
+import { convertToObject } from "typescript";
 
 
 export default function ModalIndex(): JSX.Element {
@@ -13,10 +14,27 @@ export default function ModalIndex(): JSX.Element {
    const { countryCode, longitude, latitude, startDate, endDate } = inputStates
 
 
+
    const handleInputs = () => {
-      if (countryCode && (longitude || latitude)) {
-         alert("select between one of these");
+
+      const coordinates = longitude || latitude;
+      const dateRange = startDate && endDate;
+      const areAllFalsy = Object.values(inputStates).every(value => !value);
+      console.log(areAllFalsy);
+
+      if (areAllFalsy) {
+         alert("Please fill the required fields")
+      } else if (countryCode && coordinates) {
+         alert("Please select between Country OR Coordinates");
+      } else if (!(dateRange)) {
+         alert("Please choose the date range")
+      } else if (dateRange && !(countryCode || coordinates)) {
+         alert("Please select and indication for the place")
+      } else {
+         console.log("t'apposto compare")
       }
+
+
    }
 
    return (
@@ -40,6 +58,7 @@ export default function ModalIndex(): JSX.Element {
                </div>
                <button onClick={() => {
                   handleInputs();
+                  console.log(inputStates)
                }}>Click Me</button>
             </div>
          </div>
