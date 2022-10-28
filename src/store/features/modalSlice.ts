@@ -3,7 +3,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface InputTypes {
    value: {
       countryCode: string | undefined;
-
       longitude: string | undefined
       latitude: string | undefined
       startDate: string | undefined;
@@ -27,7 +26,6 @@ export const modalSlice = createSlice({
    initialState,
    reducers: {
       addCountryCode: (state, action: PayloadAction<string | undefined>) => {
-
          state.value.countryCode = action.payload
          console.log(state.value.countryCode);
       },
@@ -50,7 +48,6 @@ export const modalSlice = createSlice({
       },
       addStartDate: (state, action: PayloadAction<string>) => {
          state.value.startDate = action.payload
-
       },
       addEndDate: (state, action: PayloadAction<string>) => {
          state.value.endDate = action.payload

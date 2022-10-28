@@ -6,7 +6,6 @@ export default function Home(): JSX.Element {
    return (
       <>
          <div className="home">
-
             <h1>Hello Project</h1>
             <button>Click Me</button>
             <ModalIndex />

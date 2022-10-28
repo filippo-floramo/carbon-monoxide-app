@@ -32,7 +32,6 @@ export default function ModalTextFields(): JSX.Element {
             value={longitude || ""}
             onChange={(e) => {
                dispatch(addCoordinates({ id: e.target.id, value: e.target.value }));
-
             }}
          />
       </>

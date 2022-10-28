@@ -14,16 +14,13 @@ type SelectTypes = DataTypes | string | null
 
 export default function ModalSelect() {
 
-
-
    const dispatch = useDispatch();
 
    const { data, isLoading } = useGetEmissionCountriesQuery();
 
-
    if (isLoading) {
       return <div>Loading...</div>
-   }
+   };
 
    const filteredCountryCodes = Object.keys(data).filter((key) => {
       return key.length <= 2
@@ -31,8 +28,7 @@ export default function ModalSelect() {
 
    const countryOptions: any = filteredCountryCodes.map((key: string) => {
       return { label: data[key], value: key }
-   })
-
+   });
 
    return (
       <>

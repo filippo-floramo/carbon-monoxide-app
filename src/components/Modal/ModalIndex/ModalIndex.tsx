@@ -18,15 +18,10 @@ export default function ModalIndex(): JSX.Element {
 
          console.error(error)
       }
-
-
    }
-
 
    const inputStates = useSelector((state: RootState) => state.input.value);
    const { countryCode, longitude, latitude, startDate, endDate } = inputStates
-
-
 
    const handleInputs = () => {
 
@@ -49,8 +44,6 @@ export default function ModalIndex(): JSX.Element {
       } else if (dateRange && (longitude && latitude)) {
          alert("t'appostissimo");
       }
-
-
    }
 
    return (
