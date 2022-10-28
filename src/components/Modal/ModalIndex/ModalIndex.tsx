@@ -4,10 +4,17 @@ import { RootState } from "../../../store/store";
 import ModalSelect from "../ModalSelect/ModalSelect";
 import ModalTextFields from "../ModalTextFields/ModalTextFields";
 import ModalDatePickers from "../ModalDatePickers/ModalDatePickers";
-import { convertToObject } from "typescript";
-
+import axios from "axios";
 
 export default function ModalIndex(): JSX.Element {
+
+
+   const getDataByCountryCode = async (code: string, begin: string, end: string) => {
+      const response = await axios.get(`https://api.v2.emissions-api.org/api/v2/carbonmonoxide/average.json?country=${code}&begin=${begin}&end=${end}&limit=50&offset=0`);
+
+      console.log(response)
+
+   }
 
 
    const inputStates = useSelector((state: RootState) => state.input.value);
@@ -30,7 +37,9 @@ export default function ModalIndex(): JSX.Element {
       } else if (dateRange && !(countryCode || (longitude && latitude))) {
          alert("Please select and indication for the place")
       } else if (dateRange && countryCode) {
-         console.log("t'apposto compare");
+
+         getDataByCountryCode(countryCode, startDate, endDate);
+
       } else if (dateRange && (longitude && latitude)) {
          alert("t'appostissimo");
       }
