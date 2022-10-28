@@ -1,19 +1,19 @@
 import React from "react";
-import Select from "react-select"
+import Select, { GroupBase, Options, OptionsOrGroups, } from "react-select"
 import { useDispatch } from "react-redux";
 import { useGetEmissionCountriesQuery, } from "../../../store/services/api/api";
 import { addCountryCode } from "../../../store/features/modalSlice";
 
 
+interface DataTypes {
+   label: string
+   value: string
+}
+
+type SelectTypes = DataTypes | string | null
 
 export default function ModalSelect() {
 
-   interface DataTypes {
-      label: string
-      value: string
-   }
-
-   type SelectTypes = DataTypes | string | null
 
 
    const dispatch = useDispatch();
@@ -25,9 +25,13 @@ export default function ModalSelect() {
       return <div>Loading...</div>
    }
 
-   const managedData = data.map((item: { Name: string, Code: string }): DataTypes => {
-      return { label: item.Name, value: item.Code }
+   const filteredCountryCodes = Object.keys(data).filter((key) => {
+      return key.length <= 2
    });
+
+   const countryOptions: any = filteredCountryCodes.map((key: string) => {
+      return { label: data[key], value: key }
+   })
 
 
    return (
@@ -45,7 +49,7 @@ export default function ModalSelect() {
             }}
             isSearchable={true}
             isClearable={true}
-            options={managedData}
+            options={countryOptions}
          />
       </>
    )
