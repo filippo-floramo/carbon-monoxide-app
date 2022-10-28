@@ -17,21 +17,22 @@ export default function ModalIndex(): JSX.Element {
 
    const handleInputs = () => {
 
-      const coordinates = longitude || latitude;
       const dateRange = startDate && endDate;
       const areAllFalsy = Object.values(inputStates).every(value => !value);
       console.log(areAllFalsy);
 
       if (areAllFalsy) {
          alert("Please fill the required fields")
-      } else if (countryCode && coordinates) {
+      } else if (countryCode && (longitude || latitude)) {
          alert("Please select between Country OR Coordinates");
       } else if (!(dateRange)) {
          alert("Please choose the date range")
-      } else if (dateRange && !(countryCode || coordinates)) {
+      } else if (dateRange && !(countryCode || (longitude && latitude))) {
          alert("Please select and indication for the place")
-      } else {
-         console.log("t'apposto compare")
+      } else if (dateRange && countryCode) {
+         console.log("t'apposto compare");
+      } else if (dateRange && (longitude && latitude)) {
+         alert("t'appostissimo");
       }
 
 
