@@ -1,27 +1,26 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
+import { addChartsData } from "../../../store/features/chartsSlice";
+import { useAtom } from "jotai";
+import { ModalOpen } from "../../../atoms/atoms";
 import ModalSelect from "../ModalSelect/ModalSelect";
 import ModalTextFields from "../ModalTextFields/ModalTextFields";
 import ModalDatePickers from "../ModalDatePickers/ModalDatePickers";
 import axios from "axios";
 
+
+
 export default function ModalIndex(): JSX.Element {
 
-   const getDataByCountryCode = async (code: string, begin: string, end: string) => {
-      try {
-         const response = await axios.get(`https://api.v2.emissions-api.org/api/v2/carbonmonoxide/average.json?country=${code}&begin=${begin}&end=${end}&limit=50&offset=0`);
+   const [,setIsModalOpen] = useAtom(ModalOpen);
 
-         const data = await response.data;
-         console.log(data);
-      } catch (error) {
 
-         console.error(error)
-      }
-   }
+   const dispatch = useDispatch();
+
 
    const inputStates = useSelector((state: RootState) => state.input.value);
-   const { countryCode, longitude, latitude, startDate, endDate } = inputStates
+   const { countryCode, longitude, latitude, startDate, endDate } = inputStates;
 
    const handleInputs = () => {
 
@@ -39,12 +38,49 @@ export default function ModalIndex(): JSX.Element {
          alert("Please select and indication for the place")
       } else if (dateRange && countryCode) {
 
-         getDataByCountryCode(countryCode, startDate, endDate);
+         getDataByCountryCode(countryCode, startDate, endDate).then(() => { setIsModalOpen(false) });
+
 
       } else if (dateRange && (longitude && latitude)) {
          alert("t'appostissimo");
       }
    }
+
+   // these needs to be in a separate file and then imported
+
+   const getDataByCountryCode = async (code: string, begin: string, end: string) => {
+      try {
+         const response = await axios.get(`https://api.v2.emissions-api.org/api/v2/carbonmonoxide/average.json?country=${code}&begin=${begin}&end=${end}&limit=50&offset=0`);
+
+         const data = await response.data;
+         dispatch(addChartsData(data));
+
+      } catch (error) {
+
+         console.error(error)
+      }
+   }
+   
+
+   // the response must be sorted INSIDE the function, not on the reducer, keep the reducer  action as simple as possible
+
+   const getDataByCoordinates = async (longitude: string, latitude: string, begin: string, end: string) => {
+      try {
+         const response = await axios.get('');
+
+         const data = await response.data;
+         console.log(data);
+
+         //here goes the Sort
+
+         //here goes the dispatch to the store
+
+      } catch (error) {
+
+         console.error(error)
+      }
+   }
+
 
    return (
       <>
