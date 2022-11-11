@@ -11,7 +11,7 @@ interface DataTypes {
 
 type SelectTypes = DataTypes | null
 
-export default function ModalSelect() {
+export default function ModalSelect(): JSX.Element {
 
    const dispatch = useDispatch();
 
