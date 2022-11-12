@@ -4,6 +4,8 @@ import { RootState } from "../../../store/store";
 import { addChartsData } from "../../../store/features/chartsSlice";
 import { useAtom } from "jotai";
 import { ModalOpen } from "../../../atoms/atoms";
+import { useNavigate } from "react-router-dom";
+import { useModalApi } from "../../../hooks/useModalApi";
 import ModalSelect from "../ModalSelect/ModalSelect";
 import ModalTextFields from "../ModalTextFields/ModalTextFields";
 import ModalDatePickers from "../ModalDatePickers/ModalDatePickers";
@@ -13,11 +15,11 @@ import axios from "axios";
 
 export default function ModalIndex(): JSX.Element {
 
-   const [,setIsModalOpen] = useAtom(ModalOpen);
+   const navigate = useNavigate()
 
+   const [, setIsModalOpen] = useAtom(ModalOpen);
 
-   const dispatch = useDispatch();
-
+   const { getDataByCountryCode } = useModalApi();
 
    const inputStates = useSelector((state: RootState) => state.input.value);
    const { countryCode, longitude, latitude, startDate, endDate } = inputStates;
@@ -38,49 +40,15 @@ export default function ModalIndex(): JSX.Element {
          alert("Please select and indication for the place")
       } else if (dateRange && countryCode) {
 
-         getDataByCountryCode(countryCode, startDate, endDate).then(() => { setIsModalOpen(false) });
-
-
+         getDataByCountryCode(countryCode, startDate, endDate)
+            .then(() => {
+               setIsModalOpen(false)
+               navigate("/results");
+            });
       } else if (dateRange && (longitude && latitude)) {
          alert("t'appostissimo");
       }
    }
-
-   // these needs to be in a separate file and then imported
-
-   const getDataByCountryCode = async (code: string, begin: string, end: string) => {
-      try {
-         const response = await axios.get(`https://api.v2.emissions-api.org/api/v2/carbonmonoxide/average.json?country=${code}&begin=${begin}&end=${end}&limit=50&offset=0`);
-
-         const data = await response.data;
-         dispatch(addChartsData(data));
-
-      } catch (error) {
-
-         console.error(error)
-      }
-   }
-   
-
-   // the response must be sorted INSIDE the function, not on the reducer, keep the reducer  action as simple as possible
-
-   const getDataByCoordinates = async (longitude: string, latitude: string, begin: string, end: string) => {
-      try {
-         const response = await axios.get('');
-
-         const data = await response.data;
-         console.log(data);
-
-         //here goes the Sort
-
-         //here goes the dispatch to the store
-
-      } catch (error) {
-
-         console.error(error)
-      }
-   }
-
 
    return (
       <>
@@ -89,7 +57,7 @@ export default function ModalIndex(): JSX.Element {
                <h1>Choose where and when.</h1>
                <p>Select between: </p>
                <div className="select">
-                  <p>State</p>
+                  <p>Country</p>
                   <ModalSelect />
                </div>
                <p>Or</p>
@@ -104,7 +72,9 @@ export default function ModalIndex(): JSX.Element {
                <button onClick={() => {
                   handleInputs();
                   console.log(inputStates)
-               }}>Click Me</button>
+               }}>
+                  Click Me
+               </button>
             </div>
          </div>
       </>
