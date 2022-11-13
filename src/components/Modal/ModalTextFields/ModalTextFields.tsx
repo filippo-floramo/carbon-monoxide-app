@@ -6,9 +6,11 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 
 
-export default function ModalTextFields(): JSX.Element {
+interface TextFieldProps {
+   coordinatesRegExp: RegExp
+}
 
-   const coordinatesRegExp: RegExp = /[a-z]+/ig
+export default function ModalTextFields({ coordinatesRegExp }: TextFieldProps): JSX.Element {
 
    const dispatch = useDispatch();
    const latitude = useSelector((state: RootState) => state.input.value.latitude);
