@@ -15,8 +15,7 @@ type DateTypes = Dayjs | null
 
 export default function ModalDatePickers(): JSX.Element {
 
-   const startDate = useSelector((state: RootState) => state.input.value.startDate)
-   const endDate = useSelector((state: RootState) => state.input.value.endDate)
+   const { startDate, endDate } = useSelector((state: RootState) => state.input.value)
 
    const dispatch = useDispatch();
 
