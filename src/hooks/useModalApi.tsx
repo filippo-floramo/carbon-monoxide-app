@@ -18,13 +18,11 @@ export function useModalApi(): ApiTypes {
 
    const dispatch = useDispatch();
 
-
    const getDataByCountryCode = async (code: string, begin: string, end: string) => {
 
       const countryCodeApi: string = `https://api.v2.emissions-api.org/api/v2/carbonmonoxide/average.json?country=${code}&begin=${begin}&end=${end}&offset=0`
 
       try {
-
          const response = await axios.get(countryCodeApi);
 
          const data: EmissionData[] = await response.data;
@@ -35,7 +33,6 @@ export function useModalApi(): ApiTypes {
          console.error(error)
       }
    }
-
 
    const getDataByCoordinates = async (longitude: string, latitude: string, begin: string, end: string) => {
 
