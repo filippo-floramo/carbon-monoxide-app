@@ -10,17 +10,15 @@ import ModalDatePickers from "../ModalDatePickers/ModalDatePickers";
 import ModalCloseButton from "../ModalCloseButton/ModalCloseButton";
 
 
-
 export default function ModalIndex(): JSX.Element {
 
    const { getDataByCountryCode, getDataByCoordinates } = useModalApi();
 
-   const navigate = useNavigate()
+   const navigate = useNavigate();
 
    const { setIsModalOpen, isCountrySearch } = useStateAtoms();
 
    const inputStates = useSelector((state: RootState) => state.input.value);
-
    const {
       countryCode,
       longitude,
@@ -28,6 +26,9 @@ export default function ModalIndex(): JSX.Element {
       startDate,
       endDate
    } = inputStates;
+
+   const coordinatesRegExp: RegExp = /[a-z]+/ig;
+
 
    const handleInputs = () => {
 
@@ -37,8 +38,6 @@ export default function ModalIndex(): JSX.Element {
 
       if (areAllFalsy) {
          alert("Please fill the required fields")
-      } else if (countryCode && (longitude || latitude)) {
-         alert("Please select between Country OR Coordinates");
       } else if (!(dateRange)) {
          alert("Please choose the date range")
       } else if (dateRange && !(countryCode || (longitude && latitude))) {
@@ -52,11 +51,21 @@ export default function ModalIndex(): JSX.Element {
             });
       } else if (dateRange && (longitude && latitude)) {
 
-         getDataByCoordinates(longitude, latitude, startDate, endDate)
-            .then(() => {
-               setIsModalOpen(false)
-               navigate("/results");
-            })
+         const latitudeIsNotValid = coordinatesRegExp.test(latitude);
+         const longitudeIsNotValid = coordinatesRegExp.test(longitude);
+
+         switch (longitudeIsNotValid || latitudeIsNotValid) {
+            case true:
+               alert("Values in the coordinate fields must be numbers");
+               break;
+            case false:
+               getDataByCoordinates(longitude, latitude, startDate, endDate)
+                  .then(() => {
+                     setIsModalOpen(false)
+                     navigate("/results");
+                  })
+               break;
+         }
       }
    }
 
@@ -76,7 +85,7 @@ export default function ModalIndex(): JSX.Element {
                      :
                      <div className="coordinates">
                         <p> Coordinates</p>
-                        <ModalTextFields />
+                        <ModalTextFields coordinatesRegExp={coordinatesRegExp} />
                      </div>
                }
                <div className="date--range">
