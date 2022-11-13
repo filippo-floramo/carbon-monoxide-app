@@ -1,7 +1,6 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
-import { addChartsData } from "../../../store/features/chartsSlice";
 import { useAtom } from "jotai";
 import { ModalOpen } from "../../../atoms/atoms";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +8,6 @@ import { useModalApi } from "../../../hooks/useModalApi";
 import ModalSelect from "../ModalSelect/ModalSelect";
 import ModalTextFields from "../ModalTextFields/ModalTextFields";
 import ModalDatePickers from "../ModalDatePickers/ModalDatePickers";
-import axios from "axios";
 
 
 
@@ -19,7 +17,7 @@ export default function ModalIndex(): JSX.Element {
 
    const [, setIsModalOpen] = useAtom(ModalOpen);
 
-   const { getDataByCountryCode } = useModalApi();
+   const { getDataByCountryCode, getDataByCoordinates } = useModalApi();
 
    const inputStates = useSelector((state: RootState) => state.input.value);
    const { countryCode, longitude, latitude, startDate, endDate } = inputStates;
@@ -46,7 +44,13 @@ export default function ModalIndex(): JSX.Element {
                navigate("/results");
             });
       } else if (dateRange && (longitude && latitude)) {
-         alert("t'appostissimo");
+
+         getDataByCoordinates(longitude, latitude, startDate, endDate)
+            .then(() => {
+               setIsModalOpen(false)
+               navigate("/results");
+            })
+         
       }
    }
 
