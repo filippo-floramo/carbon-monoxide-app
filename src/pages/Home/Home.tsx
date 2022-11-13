@@ -1,17 +1,19 @@
 import React from "react";
 import ModalIndex from "../../components/Modal/ModalIndex/ModalIndex";
-import { useAtom } from "jotai";
-import { ModalOpen } from "../../atoms/atoms";
+import useStateAtoms from "../../atoms/atoms";
 
 export default function Home(): JSX.Element {
 
-   const [isModalOpen] = useAtom(ModalOpen);
+   const { isModalOpen, setIsCountrySearch, setIsModalOpen } = useStateAtoms();
 
    return (
       <>
          <div className="home">
             <h1>Hello Project</h1>
-            <button>Click Me</button>
+            <div className="search--buttons">
+               <button onClick={() => { setIsCountrySearch(true); setIsModalOpen(true) }}>Search by Country</button>
+               <button onClick={() => { setIsCountrySearch(false); setIsModalOpen(true) }}>Search by Coordinates</button>
+            </div>
             {isModalOpen && <ModalIndex />}
          </div>
       </>
