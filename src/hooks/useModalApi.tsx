@@ -2,13 +2,19 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addChartsData } from "../store/features/chartsSlice";
 
+
+interface ApiTypes {
+   getDataByCountryCode: (code: string, begin: string, end: string) => Promise<void>,
+   getDataByCoordinates: (longitude: string, latitude: string, begin: string, end: string) => Promise<void>
+}
+
 interface EmissionData {
    average: number,
    end: string,
    start: string
 }
 
-export function useModalApi() {
+export function useModalApi(): ApiTypes {
 
    const dispatch = useDispatch();
 
