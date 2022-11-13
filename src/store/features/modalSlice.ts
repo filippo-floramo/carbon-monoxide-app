@@ -30,7 +30,7 @@ export const modalSlice = createSlice({
       },
 
       addCoordinates: (state, action: PayloadAction<{ id: string, value: string }>) => {
-         
+
          switch (action.payload.id) {
             case "longitude":
                state.value.longitude = action.payload.value
@@ -48,12 +48,25 @@ export const modalSlice = createSlice({
       addStartDate: (state, action: PayloadAction<string>) => {
          state.value.startDate = action.payload
       },
+
       addEndDate: (state, action: PayloadAction<string>) => {
          state.value.endDate = action.payload
+      },
+
+      resetModalData: (state) => {
+         state.value = {
+            countryCode: undefined,
+            longitude: undefined,
+            latitude: undefined,
+            startDate: undefined,
+            endDate: undefined,
+         }
+
+         console.log(state.value)
       }
    }
 });
 
-export const { addCountryCode, addCoordinates, addEndDate, addStartDate } = modalSlice.actions
+export const { addCountryCode, addCoordinates, addEndDate, addStartDate, resetModalData } = modalSlice.actions
 
 export default modalSlice.reducer

@@ -1,26 +1,33 @@
 import React from "react";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
-import { useAtom } from "jotai";
-import { ModalOpen } from "../../../atoms/atoms";
 import { useNavigate } from "react-router-dom";
 import { useModalApi } from "../../../hooks/useModalApi";
+import useStateAtoms from "../../../atoms/atoms";
 import ModalSelect from "../ModalSelect/ModalSelect";
 import ModalTextFields from "../ModalTextFields/ModalTextFields";
 import ModalDatePickers from "../ModalDatePickers/ModalDatePickers";
+import ModalCloseButton from "../ModalCloseButton/ModalCloseButton";
 
 
 
 export default function ModalIndex(): JSX.Element {
 
-   const navigate = useNavigate()
-
-   const [, setIsModalOpen] = useAtom(ModalOpen);
-
    const { getDataByCountryCode, getDataByCoordinates } = useModalApi();
 
+   const navigate = useNavigate()
+
+   const { setIsModalOpen, isCountrySearch } = useStateAtoms();
+
    const inputStates = useSelector((state: RootState) => state.input.value);
-   const { countryCode, longitude, latitude, startDate, endDate } = inputStates;
+
+   const {
+      countryCode,
+      longitude,
+      latitude,
+      startDate,
+      endDate
+   } = inputStates;
 
    const handleInputs = () => {
 
@@ -50,7 +57,6 @@ export default function ModalIndex(): JSX.Element {
                setIsModalOpen(false)
                navigate("/results");
             })
-         
       }
    }
 
@@ -58,17 +64,21 @@ export default function ModalIndex(): JSX.Element {
       <>
          <div className="backdrop">
             <div className="modal--container">
+               <ModalCloseButton />
                <h1>Choose where and when.</h1>
-               <p>Select between: </p>
-               <div className="select">
-                  <p>Country</p>
-                  <ModalSelect />
-               </div>
-               <p>Or</p>
-               <div className="coordinates">
-                  <p> Coordinates</p>
-                  <ModalTextFields />
-               </div>
+               {
+                  isCountrySearch ?
+
+                     <div className="select">
+                        <p>Country</p>
+                        <ModalSelect />
+                     </div>
+                     :
+                     <div className="coordinates">
+                        <p> Coordinates</p>
+                        <ModalTextFields />
+                     </div>
+               }
                <div className="date--range">
                   <p>Pick the date Range</p>
                   <ModalDatePickers />
