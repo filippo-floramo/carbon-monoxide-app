@@ -37,7 +37,7 @@ export default function ModalSelect(): JSX.Element {
          name="country"
          classNamePrefix="select"
          className="country--select"
-         placeholder="Search"
+         placeholder="Select a country..."
          onChange={(country: SelectTypes) => {
             if (country) {
                dispatch(addCountryCode(country.value));
