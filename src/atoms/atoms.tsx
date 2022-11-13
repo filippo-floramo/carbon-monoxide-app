@@ -1,6 +1,11 @@
-import { atom, useAtom } from "jotai";
+import { atom, SetStateAction, useAtom } from "jotai";
 
-
+interface Atoms {
+   isModalOpen: boolean,
+   setIsModalOpen: (update: SetStateAction<boolean>) => void,
+   isCountrySearch: boolean | null,
+   setIsCountrySearch: (update: SetStateAction<boolean | null>) => void
+}
 
 //Declaring Atoms
 
@@ -10,7 +15,7 @@ const searchType = atom<boolean | null>(null);
 
 //Custom Hook to use atoms everywhere
 
-export default function useStateAtoms() {
+export default function useStateAtoms(): Atoms {
 
    const [isModalOpen, setIsModalOpen] = useAtom(modalOpen);
 
