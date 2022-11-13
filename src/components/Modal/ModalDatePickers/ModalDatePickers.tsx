@@ -23,7 +23,6 @@ export default function ModalDatePickers(): JSX.Element {
       <>
          <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
-               className="lollo"
                label="Start Date"
                value={startDate}
                onChange={(newValue: DateTypes) => {
