@@ -18,7 +18,6 @@ export const chartsSlice = createSlice({
    }
 })
 
-
 export const { addChartsData } = chartsSlice.actions;
 
 export default chartsSlice.reducer

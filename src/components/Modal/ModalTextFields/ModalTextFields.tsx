@@ -24,7 +24,7 @@ export default function ModalTextFields({ coordinatesRegExp }: TextFieldProps): 
             size="small"
             variant="filled"
             error={latitude?.match(coordinatesRegExp) ? true : false}
-            helperText={latitude?.match(coordinatesRegExp) ? "value must be a number" : " "}
+            helperText={latitude?.match(coordinatesRegExp) ? "Value must be a number." : " "}
             value={latitude || ""}
             onChange={(e) => {
                dispatch(addCoordinates({ id: e.target.id, value: e.target.value }));
@@ -36,7 +36,7 @@ export default function ModalTextFields({ coordinatesRegExp }: TextFieldProps): 
             size="small"
             variant="filled"
             error={longitude?.match(coordinatesRegExp) ? true : false}
-            helperText={longitude?.match(coordinatesRegExp) ? "value must be a number" : " "}
+            helperText={longitude?.match(coordinatesRegExp) ? "Value must be a number." : " "}
             value={longitude || ""}
             onChange={(e) => {
                dispatch(addCoordinates({ id: e.target.id, value: e.target.value }));
