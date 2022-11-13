@@ -44,7 +44,6 @@ export default function ModalSelect(): JSX.Element {
             }
          }}
          isSearchable={true}
-         isClearable={true}
          options={countryOptions}
       />
    )
