@@ -1,18 +1,28 @@
-import React from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addChartsData } from "../store/features/chartsSlice";
 
-
+interface EmissionData {
+   average: number,
+   end: string,
+   start: string
+}
 
 export function useModalApi() {
 
    const dispatch = useDispatch();
 
+
    const getDataByCountryCode = async (code: string, begin: string, end: string) => {
+
+      const countryCodeApi: string = `https://api.v2.emissions-api.org/api/v2/carbonmonoxide/average.json?country=${code}&begin=${begin}&end=${end}&offset=0`
+
       try {
-         const response = await axios.get(`https://api.v2.emissions-api.org/api/v2/carbonmonoxide/average.json?country=${code}&begin=${begin}&end=${end}&offset=0`);
-         const data = await response.data;
+
+         const response = await axios.get(countryCodeApi);
+
+         const data: EmissionData[] = await response.data;
+
          dispatch(addChartsData(data));
 
       } catch (error) {
@@ -20,21 +30,30 @@ export function useModalApi() {
       }
    }
 
-   // the response must be sorted INSIDE the function, not on the reducer, keep the reducer  action as simple as possible
 
    const getDataByCoordinates = async (longitude: string, latitude: string, begin: string, end: string) => {
+
+      const coordinatesApi: string = `https://api.v2.emissions-api.org/api/v2/carbonmonoxide/average.json?point=${longitude}&point=${latitude}&begin=${begin}&end=${end}&offset=0`
+
       try {
-         const response = await axios.get('');
+         const response = await axios.get(coordinatesApi);
 
-         const data = await response.data;
-         console.log(data);
+         const data: EmissionData[] = await response.data;
 
-         //here goes the Sort
+         // Data coming from coordinates has unsorted DATES, so they need to be sorted
 
-         //here goes the dispatch to the store
+         const sortedData = data.sort((a, b): number => {
 
+            let first = a.start.match(/[0-9]+/g)?.join('');
+            let second = b.start.match(/[0-9]+/g)?.join('');
+
+            return Number(first) - Number(second)
+         });
+
+         dispatch(addChartsData(sortedData));
+
+         console.log(sortedData);
       } catch (error) {
-
          console.error(error)
       }
    }
