@@ -1,5 +1,5 @@
 import React from "react";
-import Select, { GroupBase, Options, OptionsOrGroups, } from "react-select"
+import Select from "react-select"
 import { useDispatch } from "react-redux";
 import { useGetEmissionCountriesQuery, } from "../../../store/services/api/api";
 import { addCountryCode } from "../../../store/features/modalSlice";
