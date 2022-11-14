@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { addMainChartData, addTotalChartData } from "../store/features/chartsSlice";
+import { addMainChartData } from "../store/features/chartsSlice";
 import { EmissionData } from "../interfaces/interfaces"
 import { sortData } from "../utils/functions";
+import { addTotalChartData } from "../store/features/totalChartSlice";
 
 interface ApiTypes {
    getDataByCountryCode: (code: string, begin: string, end: string) => Promise<void>,

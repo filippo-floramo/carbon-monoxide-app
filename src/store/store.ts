@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import {
    persistStore,
    persistReducer,
@@ -12,13 +12,20 @@ import {
 import { emissionAPI } from "./services/api/api";
 import storage from 'redux-persist/lib/storage';
 import modalReducer from "./features/modalSlice";
-import chartReducer from "./features/chartsSlice";
+import mainChartReducer from "./features/chartsSlice";
+import totalChartReducer from "./features/totalChartSlice";
 
 const persistConfig = {
    key: 'root',
    version: 1,
    storage,
 }
+
+const chartReducer = combineReducers({
+   mainChart: mainChartReducer,
+   totalChart: totalChartReducer
+})
+
 
 const persistedReducer = persistReducer(persistConfig, chartReducer)
 

@@ -3,3 +3,7 @@ export interface EmissionData {
    end: string,
    start: string
 }
+
+export interface ChartsData {
+   value: EmissionData[]
+}
