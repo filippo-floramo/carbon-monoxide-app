@@ -10,13 +10,13 @@ interface ApiTypes {
 }
 
 
-export function useEmissionApi(): ApiTypes {
+export function useEmissionApi(): any {
 
    const dispatch = useDispatch();
    const currentDate = new Date().toJSON();
 
 
-   const getDataByCountryCode = async (code: string, begin: string, end: string) => {
+   const getDataByCountryCode = (code: string, begin: string, end: string) => {
 
       const countryCodeUrl: string = `https://api.v2.emissions-api.org/api/v2/carbonmonoxide/average.json?country=${code}&begin=${begin}&end=${end}&offset=0`
 
@@ -34,7 +34,7 @@ export function useEmissionApi(): ApiTypes {
       }
    }
 
-   const getDataByCoordinates = async (longitude: string, latitude: string, begin: string, end: string) => {
+   const getDataByCoordinates = (longitude: string, latitude: string, begin: string, end: string) => {
 
       const coordinatesUrl: string = `https://api.v2.emissions-api.org/api/v2/carbonmonoxide/average.json?point=${longitude}&point=${latitude}&begin=${begin}&end=${end}&offset=0`
       // Data coming from coordinates has unsorted DATES, so they need to be sorted
@@ -59,7 +59,7 @@ export function useEmissionApi(): ApiTypes {
    // these two functions need two abstracted into one
 
 
-   const fetchTotalDataByCountry = async (countryCode: string) => {
+   const fetchTotalDataByCountry = (countryCode: string) => {
       const DataUrl = `https://api.v2.emissions-api.org/api/v2/carbonmonoxide/average.json?country=${countryCode}&begin=2019-01-01&end=${currentDate}&offset=0`;
 
       try {
@@ -73,7 +73,7 @@ export function useEmissionApi(): ApiTypes {
       }
    }
 
-   const fetchTotalDataByCoordinates = async (longitude: string, latitude: string) => {
+   const fetchTotalDataByCoordinates = (longitude: string, latitude: string) => {
       const DataUrl = `https://api.v2.emissions-api.org/api/v2/carbonmonoxide/average.json?point=${longitude}&point=${latitude}&begin=2019-01-01&end=${currentDate}&offset=0`;
 
       try {
