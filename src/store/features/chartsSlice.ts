@@ -9,8 +9,6 @@ interface ChartsData {
    }
 }
 
-
-
 const initialChartsState: ChartsData = {
    value: {
       mainData: [],

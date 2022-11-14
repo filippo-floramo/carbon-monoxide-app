@@ -5,6 +5,7 @@ import { RootState } from "../../../store/store";
 
 
 export default function TotalDataChart() {
+   
    const { totalData } = useSelector((state: RootState) => state.chart.value);
 
    return (
