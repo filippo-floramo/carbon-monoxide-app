@@ -24,8 +24,8 @@ export function useEmissionApi(): ApiTypes {
          const mainCountryResponse = await axios.get(countryCodeUrl);
          const totalCountryResponse = await axios.get(totalCountryDataUrl);
 
-         const mainCountryData = await mainCountryResponse.data;
-         const totalCountryData = await totalCountryResponse.data;
+         const mainCountryData: EmissionData[] = await mainCountryResponse.data;
+         const totalCountryData: EmissionData[] = await totalCountryResponse.data;
 
          const sortedMainData = sortData(mainCountryData);
          const sortedTotalData = sortData(totalCountryData);
@@ -47,8 +47,8 @@ export function useEmissionApi(): ApiTypes {
          const mainCoordinatesResponse = await axios.get(coordinatesUrl);
          const totalCoorinatesResponse = await axios.get(totalCoordinatesDataUrl);
 
-         const mainCoordinatesData = await mainCoordinatesResponse.data;
-         const totalCoordinatesData = await totalCoorinatesResponse.data;
+         const mainCoordinatesData: EmissionData[] = await mainCoordinatesResponse.data;
+         const totalCoordinatesData: EmissionData[] = await totalCoorinatesResponse.data;
 
          const mainSortedData = sortData(mainCoordinatesData);
          const totalSortedData = sortData(totalCoordinatesData);
