@@ -7,10 +7,12 @@ import "./App.scss";
 function App(): JSX.Element {
 
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/results" element={<Results />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/results" element={<Results />} />
+      </Routes>
+    </>
   )
 }
 

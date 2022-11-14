@@ -6,7 +6,7 @@ import { RootState } from "../../store/store";
 
 export default function MainChart(): JSX.Element {
 
-   const data = useSelector((state: RootState) => state.chart.value);
+   const data = useSelector((state: RootState) => state.chart.value.mainData);
 
    return (
 

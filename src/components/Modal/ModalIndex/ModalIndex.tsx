@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import { useNavigate } from "react-router-dom";
-import { useModalApi } from "../../../hooks/useModalApi";
+import { useEmissionApi } from "../../../hooks/useEmissionApi";
 import useStateAtoms from "../../../atoms/atoms";
 import ModalSelect from "../ModalSelect/ModalSelect";
 import ModalTextFields from "../ModalTextFields/ModalTextFields";
@@ -12,7 +12,7 @@ import ModalCloseButton from "../ModalCloseButton/ModalCloseButton";
 
 export default function ModalIndex(): JSX.Element {
 
-   const { getDataByCountryCode, getDataByCoordinates } = useModalApi();
+   const { getDataByCountryCode, getDataByCoordinates } = useEmissionApi();
 
    const navigate = useNavigate();
 
