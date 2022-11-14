@@ -14,17 +14,8 @@ export const emissionAPI = createApi({
       getEmissionCountries: build.query<CountryCodes, void>({
          query: () => `countries.json`
       }),
-      getTotalDataByCountry: build.query<EmissionData[], string>({
-         query: (countryCode) => `carbonmonoxide/average.json?country=${countryCode}&begin=2019-01-01&end=${currentDate}&offset=0`
-      }),
-      getEmissionDataByCoordinates: build.query<EmissionData[], { longitude: string | undefined, latitude: string | undefined }>({
-         query: ({ latitude, longitude }) => `carbonmonoxide/average.json?point=${longitude}&point=${latitude}&begin=2019-01-01&end=${currentDate}&offset=0`
-      })
    }),
 });
 
 export const {
-   useGetEmissionCountriesQuery,
-   useGetTotalDataByCountryQuery,
-   useGetEmissionDataByCoordinatesQuery
-} = emissionAPI;
+   useGetEmissionCountriesQuery } = emissionAPI;
