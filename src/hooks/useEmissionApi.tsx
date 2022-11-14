@@ -10,7 +10,7 @@ interface ApiTypes {
 }
 
 
-export function useEmissionApi(): any {
+export function useEmissionApi(): ApiTypes {
 
    const dispatch = useDispatch();
    const currentDate = new Date().toJSON();
