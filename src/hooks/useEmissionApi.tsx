@@ -21,13 +21,14 @@ export function useEmissionApi(): ApiTypes {
       const countryCodeUrl: string = `https://api.v2.emissions-api.org/api/v2/carbonmonoxide/average.json?country=${code}&begin=${begin}&end=${end}&offset=0`
 
       try {
-         const response = await axios.get(countryCodeUrl);
-
-         const data: EmissionData[] = await response.data;
-
-         dispatch(addMainChartData(data));
-         fetchTotalDataByCountry(code);
-
+         axios.get(countryCodeUrl)
+            .then((res) => {
+               const data: EmissionData[] = res.data;
+               dispatch(addMainChartData(data));
+            })
+            .then(() => {
+               fetchTotalDataByCountry(code);
+            });
       } catch (error) {
          console.error(error)
       }
@@ -36,25 +37,27 @@ export function useEmissionApi(): ApiTypes {
    const getDataByCoordinates = async (longitude: string, latitude: string, begin: string, end: string) => {
 
       const coordinatesUrl: string = `https://api.v2.emissions-api.org/api/v2/carbonmonoxide/average.json?point=${longitude}&point=${latitude}&begin=${begin}&end=${end}&offset=0`
-
+      // Data coming from coordinates has unsorted DATES, so they need to be sorted
       try {
-         const response = await axios.get(coordinatesUrl);
-
-         const data: EmissionData[] = await response.data;
-
-         // Data coming from coordinates has unsorted DATES, so they need to be sorted
-
-         const sortedData = sortData(data);
-
-         dispatch(addMainChartData(sortedData));
-         fetchTotalDataByCoordinates(longitude, latitude);
-         console.log(sortedData);
+         axios.get(coordinatesUrl)
+            .then((res) => {
+               const data: EmissionData[] = res.data;
+               const sortedData = sortData(data);
+               console.log(sortedData);
+               dispatch(addMainChartData(sortedData));
+            })
+            .then(() => {
+               fetchTotalDataByCoordinates(longitude, latitude);
+            });
       } catch (error) {
          console.error(error)
       }
    }
 
    /*fetching data to show the whole data range provided, they all come unsorted so they need to be sorted as well */
+
+   // these two functions need two abstracted into one
+
 
    const fetchTotalDataByCountry = async (countryCode: string) => {
       const DataUrl = `https://api.v2.emissions-api.org/api/v2/carbonmonoxide/average.json?country=${countryCode}&begin=2019-01-01&end=${currentDate}&offset=0`;
