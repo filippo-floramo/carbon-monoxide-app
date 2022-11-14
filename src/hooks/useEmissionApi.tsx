@@ -15,7 +15,6 @@ export function useEmissionApi(): ApiTypes {
    const dispatch = useDispatch();
    const currentDate = new Date().toJSON();
 
-
    const getDataByCountryCode = async (code: string, begin: string, end: string) => {
 
       const countryCodeUrl: string = `https://api.v2.emissions-api.org/api/v2/carbonmonoxide/average.json?country=${code}&begin=${begin}&end=${end}&offset=0`
@@ -61,28 +60,5 @@ export function useEmissionApi(): ApiTypes {
          console.error(error)
       }
    }
-
-   /*fetching data to show the whole data range provided, they all come unsorted so they need to be sorted as well */
-
-   // these two functions need two abstracted into one
-
-
-
-   const fetchTotalDataByCoordinates = (longitude: string, latitude: string) => {
-      const DataUrl = `https://api.v2.emissions-api.org/api/v2/carbonmonoxide/average.json?point=${longitude}&point=${latitude}&begin=2019-01-01&end=${currentDate}&offset=0`;
-
-      try {
-         axios.get(DataUrl)
-            .then(res => {
-               const data: EmissionData[] = sortData(res.data);
-               dispatch(addTotalChartData(data));
-            });
-      } catch (error) {
-         console.error(error);
-      }
-   }
-
-
-
    return { getDataByCountryCode, getDataByCoordinates }
 }
