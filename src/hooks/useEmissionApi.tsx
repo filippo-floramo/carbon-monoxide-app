@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { addMainChartData } from "../store/features/chartsSlice";
+import { addMainChartData, addTotalChartData } from "../store/features/chartsSlice";
 import { EmissionData } from "../interfaces/interfaces"
 import { sortData } from "../utils/functions";
 
@@ -13,6 +13,8 @@ interface ApiTypes {
 export function useEmissionApi(): ApiTypes {
 
    const dispatch = useDispatch();
+   const currentDate = new Date().toJSON();
+
 
    const getDataByCountryCode = async (code: string, begin: string, end: string) => {
 
@@ -24,6 +26,7 @@ export function useEmissionApi(): ApiTypes {
          const data: EmissionData[] = await response.data;
 
          dispatch(addMainChartData(data));
+         fetchTotalDataByCountry(code);
 
       } catch (error) {
          console.error(error)
@@ -44,12 +47,44 @@ export function useEmissionApi(): ApiTypes {
          const sortedData = sortData(data);
 
          dispatch(addMainChartData(sortedData));
-
+         fetchTotalDataByCoordinates(longitude, latitude);
          console.log(sortedData);
       } catch (error) {
          console.error(error)
       }
    }
+
+   /*fetching data to show the whole data range provided, they all come unsorted so they need to be sorted as well */
+
+   const fetchTotalDataByCountry = async (countryCode: string) => {
+      const DataUrl = `https://api.v2.emissions-api.org/api/v2/carbonmonoxide/average.json?country=${countryCode}&begin=2019-01-01&end=${currentDate}&offset=0`;
+
+      try {
+         axios.get(DataUrl)
+            .then(res => {
+               const data: EmissionData[] = sortData(res.data);
+               dispatch(addTotalChartData(data));
+            });
+      } catch (error) {
+         console.error(error);
+      }
+   }
+
+   const fetchTotalDataByCoordinates = async (longitude: string, latitude: string) => {
+      const DataUrl = `https://api.v2.emissions-api.org/api/v2/carbonmonoxide/average.json?point=${longitude}&point=${latitude}&begin=2019-01-01&end=${currentDate}&offset=0`;
+
+      try {
+         axios.get(DataUrl)
+            .then(res => {
+               const data: EmissionData[] = sortData(res.data);
+               dispatch(addTotalChartData(data));
+            });
+      } catch (error) {
+         console.error(error);
+      }
+   }
+
+
 
    return { getDataByCountryCode, getDataByCoordinates }
 }

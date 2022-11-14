@@ -29,7 +29,6 @@ export const chartsSlice = createSlice({
          console.log(state.value)
       },
       addTotalChartData: (state, action: PayloadAction<EmissionData[]>) => {
-
          state.value.totalData = action.payload
       }
    }
