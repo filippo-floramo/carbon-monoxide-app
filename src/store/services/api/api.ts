@@ -1,11 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { EmissionData } from "../../../interfaces/interfaces";
 
 interface CountryCodes {
    [index: string]: string
 }
-
-const currentDate = new Date().toJSON();
 
 export const emissionAPI = createApi({
    reducerPath: 'emissionAPI',
