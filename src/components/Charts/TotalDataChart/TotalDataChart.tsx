@@ -1,12 +1,12 @@
 import React from "react";
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../../store/hooks";
 import { RootState } from "../../../store/store";
 
 
 export default function TotalDataChart() {
 
-   const totalData = useSelector((state: RootState) => state.chart.totalChart.value);
+   const totalData = useAppSelector((state: RootState) => state.chart.totalChart.value);
 
    return (
       <>

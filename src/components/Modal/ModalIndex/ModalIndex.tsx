@@ -1,6 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
+import { useAppSelector } from "../../../store/hooks";
 import { useNavigate } from "react-router-dom";
 import { useEmissionApi } from "../../../hooks/useEmissionApi";
 import useStateAtoms from "../../../atoms/atoms";
@@ -18,7 +18,7 @@ export default function ModalIndex(): JSX.Element {
 
    const { setIsModalOpen, isCountrySearch } = useStateAtoms();
 
-   const inputStates = useSelector((state: RootState) => state.input.value);
+   const inputStates = useAppSelector((state: RootState) => state.input.value);
    const {
       countryCode,
       longitude,

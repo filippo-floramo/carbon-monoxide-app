@@ -1,12 +1,12 @@
 import React from "react";
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../store/hooks";
 import { RootState } from "../../store/store";
 
 
 export default function MainChart(): JSX.Element {
 
-   const mainData = useSelector((state: RootState) => state.chart.mainChart.value);
+   const mainData = useAppSelector((state: RootState) => state.chart.mainChart.value);
 
    return (
 
