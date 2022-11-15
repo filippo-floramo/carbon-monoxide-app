@@ -14,3 +14,23 @@ export const sortData = (data: EmissionData[]) => {
 
    return sortedData
 }
+
+// here goes the time range
+
+export const getDates = (rangeOption: any) => {
+
+   switch (rangeOption.type) {
+      case 'year':
+         const nowYear = new Date()
+         return {
+            to: nowYear.getTime(),
+            from: nowYear.setFullYear(nowYear.getFullYear() - rangeOption.amount)
+         };
+      case 'month':
+         const nowMonth = new Date();
+         return {
+            to: nowMonth.getTime(),
+            from: nowMonth.setMonth(nowMonth.getMonth() - rangeOption.amount)
+         }
+   }
+}

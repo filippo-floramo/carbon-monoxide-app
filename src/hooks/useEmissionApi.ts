@@ -56,7 +56,6 @@ export function useEmissionApi(): ApiTypes {
 
          dispatch(addMainChartData(mainSortedData));
          dispatch(addTotalChartData(totalSortedData));
-
       } catch (error) {
          console.error(error)
       }
