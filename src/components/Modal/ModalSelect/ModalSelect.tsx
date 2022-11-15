@@ -1,6 +1,7 @@
 import React from "react";
 import Select from "react-select"
 import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../../store/hooks";
 import { useGetEmissionCountriesQuery, } from "../../../store/services/api/api";
 import { addCountryCode } from "../../../store/features/modalSlice";
 
@@ -13,7 +14,7 @@ type SelectTypes = DataTypes | null
 
 export default function ModalSelect(): JSX.Element {
 
-   const dispatch = useDispatch();
+   const dispatch = useAppDispatch();
 
    const { data, isLoading } = useGetEmissionCountriesQuery();
 

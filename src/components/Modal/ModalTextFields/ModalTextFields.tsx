@@ -1,8 +1,7 @@
 import React from "react";
 import TextField from '@mui/material/TextField';
 import { addCoordinates } from "../../../store/features/modalSlice"
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { RootState } from "../../../store/store";
 
 
@@ -12,9 +11,9 @@ interface TextFieldProps {
 
 export default function ModalTextFields({ coordinatesRegExp }: TextFieldProps): JSX.Element {
 
-   const dispatch = useDispatch();
-   const latitude = useSelector((state: RootState) => state.input.value.latitude);
-   const longitude = useSelector((state: RootState) => state.input.value.longitude);
+   const dispatch = useAppDispatch();
+
+   const { latitude, longitude } = useAppSelector((state: RootState) => state.input.value);
 
    return (
       <>

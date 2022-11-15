@@ -5,7 +5,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import type { } from '@mui/x-date-pickers/themeAugmentation';
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { addEndDate, addStartDate } from "../../../store/features/modalSlice";
 import { RootState } from "../../../store/store";
 
@@ -15,9 +15,9 @@ type DateTypes = Dayjs | null
 
 export default function ModalDatePickers(): JSX.Element {
 
-   const { startDate, endDate } = useSelector((state: RootState) => state.input.value)
+   const { startDate, endDate } = useAppSelector((state: RootState) => state.input.value)
 
-   const dispatch = useDispatch();
+   const dispatch = useAppDispatch();
 
    return (
       <>

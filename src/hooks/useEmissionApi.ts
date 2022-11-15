@@ -1,9 +1,9 @@
-import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../store/hooks";
 import { addMainChartData } from "../store/features/chartsSlice";
 import { EmissionData } from "../interfaces/interfaces"
 import { sortData } from "../utils/functions";
 import { addTotalChartData } from "../store/features/totalChartSlice";
+import axios from "axios";
 
 interface ApiTypes {
    getDataByCountryCode: (code: string, begin: string, end: string) => Promise<void>,
@@ -13,7 +13,7 @@ interface ApiTypes {
 
 export function useEmissionApi(): ApiTypes {
 
-   const dispatch = useDispatch();
+   const dispatch = useAppDispatch();
    const currentDate = new Date().toJSON();
 
    const getDataByCountryCode = async (code: string, begin: string, end: string) => {

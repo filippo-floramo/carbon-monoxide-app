@@ -1,11 +1,11 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../../store/hooks";
 import { resetModalData } from "../../../store/features/modalSlice";
 import useStateAtoms from "../../../atoms/atoms";
 
 export default function ModalCloseButton(): JSX.Element {
 
-   const dispatch = useDispatch();
+   const dispatch = useAppDispatch();
    const { setIsModalOpen, setIsCountrySearch } = useStateAtoms();
 
    return (
