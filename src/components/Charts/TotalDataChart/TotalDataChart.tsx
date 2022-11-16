@@ -71,7 +71,7 @@ export default function TotalDataChart(): JSX.Element {
          <ResponsiveContainer height={300} width="90%" >
             <LineChart width={600} height={300} data={selectableData} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
                <Line
-                  type={timeRange?.type === "month" ? "basis" : "step"}
+                  type="step"
                   dataKey="average"
                   stroke="#8884d8"
                   dot={selectableData.length < 60 ? true : false}
