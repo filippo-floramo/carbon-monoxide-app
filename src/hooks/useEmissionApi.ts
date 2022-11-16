@@ -1,8 +1,9 @@
 import { useAppDispatch } from "../store/hooks";
 import { addMainChartData } from "../store/features/mainChartSlice";
-import { EmissionData } from "../interfaces/interfaces"
 import { manageData } from "../utils/functions";
 import { addTotalChartData } from "../store/features/totalChartSlice";
+import { EmissionData } from "../interfaces/interfaces";
+import { InputTypes } from "../interfaces/interfaces";
 import axios from "axios";
 
 interface ApiTypes {

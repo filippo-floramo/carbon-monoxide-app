@@ -14,5 +14,4 @@ export const emissionAPI = createApi({
    }),
 });
 
-export const {
-   useGetEmissionCountriesQuery } = emissionAPI;
+export const { useGetEmissionCountriesQuery } = emissionAPI;

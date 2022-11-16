@@ -1,16 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { InputTypes } from "../../interfaces/interfaces";
 
-interface InputTypes {
-   value: {
-      countryCode: string | undefined;
-      longitude: string | undefined
-      latitude: string | undefined
-      startDate: string | undefined;
-      endDate: string | undefined;
-   }
+
+interface ModalTypes {
+   value: InputTypes
 }
 
-const initialModal: InputTypes = {
+const initialModal: ModalTypes = {
    value: {
       countryCode: undefined,
       longitude: undefined,

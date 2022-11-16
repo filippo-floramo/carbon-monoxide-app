@@ -10,6 +10,8 @@ import ModalDatePickers from "../ModalDatePickers/ModalDatePickers";
 import ModalCloseButton from "../ModalCloseButton/ModalCloseButton";
 
 
+const coordinatesRegExp: RegExp = /[a-z]+/ig;
+
 export default function ModalIndex(): JSX.Element {
 
    const { getDataByCountryCode, getDataByCoordinates } = useEmissionApi();
@@ -26,9 +28,6 @@ export default function ModalIndex(): JSX.Element {
       startDate,
       endDate
    } = inputStates;
-
-   const coordinatesRegExp: RegExp = /[a-z]+/ig;
-
 
    const handleInputs = () => {
 
