@@ -3,13 +3,13 @@ import { EmissionData } from "../../interfaces/interfaces";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { ChartsData } from "../../interfaces/interfaces";
 
-const initialChartsState: ChartsData = {
+const initialTotalChart: ChartsData = {
    value: []
 }
 
 export const totalChartSlice = createSlice({
    name: "totalChart",
-   initialState: initialChartsState,
+   initialState: initialTotalChart,
    reducers: {
       addTotalChartData: (state, action: PayloadAction<EmissionData[]>) => {
          state.value = action.payload

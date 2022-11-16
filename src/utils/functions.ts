@@ -2,19 +2,6 @@ import { EmissionData } from "../interfaces/interfaces";
 
 
 
-export const sortData = (data: EmissionData[]) => {
-
-   const sortedData = data.slice().sort((a, b): number => {
-
-      let first = a.start.match(/[0-9]+/g)?.join('');
-      let second = b.start.match(/[0-9]+/g)?.join('');
-
-      return Number(first) - Number(second)
-   });
-
-   return sortedData
-}
-
 // here goes the time range
 
 export const getDates = (rangeOption: any) => {
@@ -33,4 +20,37 @@ export const getDates = (rangeOption: any) => {
             from: nowMonth.setMonth(nowMonth.getMonth() - rangeOption.amount)
          }
    }
+}
+
+export const manageData = (data: EmissionData[]) => {
+   
+   const sortedData = data.slice().sort((a, b): number => {
+
+      let first = a.start.match(/[0-9]+/g)?.join('');
+      let second = b.start.match(/[0-9]+/g)?.join('');
+
+      return Number(first) - Number(second)
+   });
+
+   const formattedData: EmissionData[] = sortedData.map((data) => {
+      const unfixedAverage = data.average;
+      const unformattedEnd = data.end;
+      const unformattedStart = data.start;
+
+      const average = Number(unfixedAverage.toFixed(4));
+      const start = formatDate(unformattedStart);
+      const end = formatDate(unformattedEnd);
+
+      return { average, end, start }
+   })
+
+   return formattedData
+}
+
+
+const formatDate = (date: string): string => {
+   const fullDate = new Date(date);
+   const dateFormatted = `${fullDate.getMonth() + 1}/${fullDate.getDate()}/${fullDate.getFullYear()} `
+
+   return dateFormatted
 }

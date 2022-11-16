@@ -10,7 +10,7 @@ interface InputTypes {
    }
 }
 
-const initialState: InputTypes = {
+const initialModal: InputTypes = {
    value: {
       countryCode: undefined,
       longitude: undefined,
@@ -22,7 +22,7 @@ const initialState: InputTypes = {
 
 export const modalSlice = createSlice({
    name: "inputs",
-   initialState,
+   initialState: initialModal,
    reducers: {
       addCountryCode: (state, action: PayloadAction<string | undefined>) => {
          state.value.countryCode = action.payload

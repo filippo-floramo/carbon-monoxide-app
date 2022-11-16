@@ -1,7 +1,7 @@
 import { useAppDispatch } from "../store/hooks";
-import { addMainChartData } from "../store/features/chartsSlice";
+import { addMainChartData } from "../store/features/mainChartSlice";
 import { EmissionData } from "../interfaces/interfaces"
-import { sortData } from "../utils/functions";
+import { manageData } from "../utils/functions";
 import { addTotalChartData } from "../store/features/totalChartSlice";
 import axios from "axios";
 
@@ -28,8 +28,8 @@ export function useEmissionApi(): ApiTypes {
          const mainCountryData: EmissionData[] = await mainCountryResponse.data;
          const totalCountryData: EmissionData[] = await totalCountryResponse.data;
 
-         const sortedMainData = sortData(mainCountryData);
-         const sortedTotalData = sortData(totalCountryData);
+         const sortedMainData = manageData(mainCountryData);
+         const sortedTotalData = manageData(totalCountryData);
 
          dispatch(addMainChartData(sortedMainData));
          dispatch(addTotalChartData(sortedTotalData));
@@ -51,8 +51,8 @@ export function useEmissionApi(): ApiTypes {
          const mainCoordinatesData: EmissionData[] = await mainCoordinatesResponse.data;
          const totalCoordinatesData: EmissionData[] = await totalCoorinatesResponse.data;
 
-         const mainSortedData = sortData(mainCoordinatesData);
-         const totalSortedData = sortData(totalCoordinatesData);
+         const mainSortedData = manageData(mainCoordinatesData);
+         const totalSortedData = manageData(totalCoordinatesData);
 
          dispatch(addMainChartData(mainSortedData));
          dispatch(addTotalChartData(totalSortedData));

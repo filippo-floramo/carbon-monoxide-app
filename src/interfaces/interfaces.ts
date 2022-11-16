@@ -1,3 +1,4 @@
+
 export interface EmissionData {
    average: number,
    end: string,
@@ -6,4 +7,12 @@ export interface EmissionData {
 
 export interface ChartsData {
    value: EmissionData[]
+}
+
+
+export interface TimeRangeOptions {
+   value: string,
+   label: string
+   type: string,
+   amount?: number
 }

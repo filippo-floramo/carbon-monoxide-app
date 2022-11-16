@@ -12,7 +12,7 @@ import {
 import { emissionAPI } from "./services/api/api";
 import storage from 'redux-persist/lib/storage';
 import modalReducer from "./features/modalSlice";
-import mainChartReducer from "./features/chartsSlice";
+import mainChartReducer from "./features/mainChartSlice";
 import totalChartReducer from "./features/totalChartSlice";
 
 const persistConfig = {

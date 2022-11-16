@@ -4,10 +4,11 @@ import { RootState } from "../../../store/store";
 import { EmissionData } from "../../../interfaces/interfaces";
 import { getDates } from "../../../utils/functions";
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { TimeRangeOptions } from "../../../interfaces/interfaces";
 import useStateAtoms from "../../../atoms/atoms";
 import Select from "react-select";
 
-export const timeRangeOptions: any = [
+export const timeRangeOptions: TimeRangeOptions[] = [
    {
       value: 'whole_period',
       label: 'Whole Period',
@@ -39,13 +40,13 @@ export const timeRangeOptions: any = [
    }
 ]
 
-export default function TotalDataChart() {
+export default function TotalDataChart(): JSX.Element {
    const { timeRange, setTimeRange } = useStateAtoms();
 
    const selectableData = useAppSelector((state: RootState) => {
       const data = state.chart.totalChart.value;
 
-      if (timeRange.type !== 'max') {
+      if (timeRange?.type !== 'max') {
          const filteredData = data.filter((data: EmissionData) => {
             const rangeSelected = getDates(timeRange);
 
@@ -58,7 +59,7 @@ export default function TotalDataChart() {
 
          return filteredData
       } else {
-         
+
          return data
       }
    });
@@ -69,11 +70,15 @@ export default function TotalDataChart() {
       <>
          <ResponsiveContainer height={300} width="90%" >
             <LineChart width={600} height={300} data={selectableData} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-               <Line type="monotone" dataKey="average" stroke="#8884d8" />
+               <Line
+                  type={timeRange?.type === "month" ? "basis" : "step"}
+                  dataKey="average"
+                  stroke="#8884d8"
+                  dot={selectableData.length < 60 ? true : false}
+               />
                <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
                <XAxis
                   dataKey="end"
-                  tickFormatter={date => new Date(date).toLocaleDateString('en-EN')}
                />
                <YAxis />
                <Tooltip />
