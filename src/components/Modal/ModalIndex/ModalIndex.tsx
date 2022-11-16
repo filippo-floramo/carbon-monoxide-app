@@ -14,7 +14,7 @@ const coordinatesRegExp: RegExp = /[a-z]+/ig;
 
 export default function ModalIndex(): JSX.Element {
 
-   const { getDataByCountryCode, getDataByCoordinates } = useEmissionApi();
+   const { getEmissionData } = useEmissionApi();
 
    const navigate = useNavigate();
 
@@ -43,7 +43,7 @@ export default function ModalIndex(): JSX.Element {
          alert("Please select and indication for the place")
       } else if (dateRange && countryCode) {
 
-         getDataByCountryCode(countryCode, startDate, endDate)
+         getEmissionData(inputStates)
             .then(() => {
                setIsModalOpen(false)
                navigate("/results");
@@ -58,11 +58,11 @@ export default function ModalIndex(): JSX.Element {
                alert("Values in the coordinate fields must be numbers");
                break;
             case false:
-               getDataByCoordinates(longitude, latitude, startDate, endDate)
+               getEmissionData(inputStates)
                   .then(() => {
                      setIsModalOpen(false)
                      navigate("/results");
-                  })
+                  });
                break;
          }
       }
