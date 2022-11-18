@@ -1,6 +1,5 @@
 import React from "react";
 import { useAppSelector } from "../../../store/hooks";
-import { RootState } from "../../../store/store";
 import { EmissionData } from "../../../interfaces/interfaces";
 import { getDates } from "../../../utils/functions";
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
@@ -43,7 +42,7 @@ export const timeRangeOptions: TimeRangeOptions[] = [
 export default function TotalDataChart(): JSX.Element {
    const { timeRange, setTimeRange } = useStateAtoms();
 
-   const selectableData = useAppSelector((state: RootState) => {
+   const selectableData = useAppSelector((state) => {
       const data = state.chart.totalChart.value;
 
       if (timeRange?.type !== 'max') {

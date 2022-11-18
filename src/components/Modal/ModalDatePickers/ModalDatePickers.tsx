@@ -7,7 +7,6 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import type { } from '@mui/x-date-pickers/themeAugmentation';
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { addEndDate, addStartDate } from "../../../store/features/modalSlice";
-import { RootState } from "../../../store/store";
 
 
 type DateTypes = Dayjs | null
@@ -15,7 +14,7 @@ type DateTypes = Dayjs | null
 
 export default function ModalDatePickers(): JSX.Element {
 
-   const { startDate, endDate } = useAppSelector((state: RootState) => state.input.value)
+   const { startDate, endDate } = useAppSelector((state) => state.input.value)
 
    const dispatch = useAppDispatch();
 

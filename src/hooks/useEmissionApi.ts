@@ -35,11 +35,11 @@ export function useEmissionApi(): ApiTypes {
       }
 
       try {
-         const mainResponse = await axios.get(searchDatahUrl);
-         const totalResponse = await axios.get(totalDataUrl);
+         const mainResponse = await axios.get<EmissionData[]>(searchDatahUrl);
+         const totalResponse = await axios.get<EmissionData[]>(totalDataUrl);
 
-         const mainData: EmissionData[] = await mainResponse.data;
-         const totalData: EmissionData[] = await totalResponse.data;
+         const mainData = mainResponse.data;
+         const totalData = totalResponse.data;
 
          const sortedMainData = manageData(mainData);
          const sortedTotalData = manageData(totalData);
