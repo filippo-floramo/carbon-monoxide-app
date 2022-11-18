@@ -4,17 +4,16 @@ import useStateAtoms from "../../atoms/atoms";
 
 export default function Home(): JSX.Element {
 
-   const { isModalOpen, setIsCountrySearch, setIsModalOpen, } = useStateAtoms();
+   const { isModalOpen, setIsCountrySearch, setIsModalOpen, setIsCompare } = useStateAtoms();
 
    return (
       <>
          <div className="home">
             <h1>Hello Project</h1>
             <div className="search--buttons">
-               <button onClick={() => { setIsCountrySearch(true); setIsModalOpen(true); }}>Search by Country</button>
-               <button onClick={() => { setIsCountrySearch(false); setIsModalOpen(true); }}>Search by Coordinates</button>
+               <button onClick={() => { setIsCountrySearch(true); setIsModalOpen(true); setIsCompare(false) }}>Search by Country</button>
+               <button onClick={() => { setIsCountrySearch(false); setIsModalOpen(true); setIsCompare(false) }}>Search by Coordinates</button>
             </div>
-            {isModalOpen && <ModalIndex />}
          </div>
       </>
    )

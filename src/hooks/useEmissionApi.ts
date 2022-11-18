@@ -6,6 +6,8 @@ import { EmissionData } from "../interfaces/interfaces";
 import { InputTypes } from "../interfaces/interfaces";
 import useStateAtoms from "../atoms/atoms";
 import axios from "axios";
+import { addCompareMainChartData } from "../store/features/compareMainChartSlice";
+import { addCompareTotalChartData } from "../store/features/compareTotalChartSlice";
 
 interface ApiTypes {
    getEmissionData: (inputStates: InputTypes) => Promise<void>
@@ -14,12 +16,14 @@ interface ApiTypes {
 
 export function useEmissionApi(): ApiTypes {
 
-   const { isCountrySearch } = useStateAtoms();
+   const { isCountrySearch, isCompare } = useStateAtoms();
    const dispatch = useAppDispatch();
    const currentDate = new Date().toJSON();
 
+   //Remove the function parameter, use a selector to get all the values instead 
 
    const getEmissionData = async (inputStates: InputTypes) => {
+
 
       const { countryCode, longitude, latitude, endDate, startDate } = inputStates
 
@@ -44,8 +48,13 @@ export function useEmissionApi(): ApiTypes {
          const sortedMainData = manageData(mainData);
          const sortedTotalData = manageData(totalData);
 
-         dispatch(addMainChartData(sortedMainData));
-         dispatch(addTotalChartData(sortedTotalData));
+         if (isCompare) {
+            dispatch(addCompareMainChartData(sortedMainData));
+            dispatch(addCompareTotalChartData(sortedTotalData))
+         } else {
+            dispatch(addMainChartData(sortedMainData));
+            dispatch(addTotalChartData(sortedTotalData));
+         }
 
       } catch (error) {
          console.error(error)

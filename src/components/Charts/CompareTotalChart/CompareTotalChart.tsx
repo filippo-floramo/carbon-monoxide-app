@@ -1,21 +1,27 @@
 import React from "react";
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { useAppSelector } from "../../../store/hooks";
+import { timeRangeOptions } from "../../../utils/miscellaneous";
 import { EmissionData } from "../../../interfaces/interfaces";
 import { getDates } from "../../../utils/functions";
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
-import { timeRangeOptions } from "../../../utils/miscellaneous";
-import useStateAtoms from "../../../atoms/atoms";
 import Select from "react-select";
+import useStateAtoms from "../../../atoms/atoms";
 
 
-export default function TotalDataChart(): JSX.Element {
+
+
+
+export default function CompareTotalChart(): JSX.Element {
+
    const { timeRange, setTimeRange } = useStateAtoms();
 
-   const selectableData = useAppSelector((state) => {
-      const data = state.chart.totalChart.value;
+
+   const compareSelectableData = useAppSelector((state) => {
+
+      const compareData = state.compareChart.compareTotalChart.value
 
       if (timeRange?.type !== 'max') {
-         const filteredData = data.filter((data: EmissionData) => {
+         const filteredData = compareData.filter((data: EmissionData) => {
             const rangeSelected = getDates(timeRange);
 
             if (!rangeSelected) return true
@@ -28,21 +34,20 @@ export default function TotalDataChart(): JSX.Element {
          return filteredData
       } else {
 
-         return data
+         return compareData
       }
    });
 
-   console.log("rirendererojeroieio")
 
    return (
       <>
          <ResponsiveContainer height={300} width="90%" >
-            <LineChart width={600} height={300} data={selectableData} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
+            <LineChart width={600} height={300} data={compareSelectableData} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
                <Line
                   type="step"
                   dataKey="average"
-                  stroke="#8884d8"
-                  dot={selectableData.length < 60 ? true : false}
+                  stroke="red"
+                  dot={compareSelectableData.length < 60 ? true : false}
                />
                <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
                <XAxis
@@ -59,6 +64,7 @@ export default function TotalDataChart(): JSX.Element {
             isClearable={false}
             isSearchable={false}
          />
+
       </>
    )
 }

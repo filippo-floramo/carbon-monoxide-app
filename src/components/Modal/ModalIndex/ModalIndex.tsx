@@ -17,7 +17,7 @@ export default function ModalIndex(): JSX.Element {
 
    const navigate = useNavigate();
 
-   const { setIsModalOpen, isCountrySearch } = useStateAtoms();
+   const { setIsModalOpen, isCountrySearch, isCompare, setShowCompareCharts } = useStateAtoms();
 
    const inputStates = useAppSelector((state) => state.input.value);
    const {
@@ -45,6 +45,7 @@ export default function ModalIndex(): JSX.Element {
          getEmissionData(inputStates)
             .then(() => {
                setIsModalOpen(false)
+               if (isCompare) { setShowCompareCharts(true) }
                navigate("/results");
             });
       } else if (dateRange && (longitude && latitude)) {
@@ -59,7 +60,8 @@ export default function ModalIndex(): JSX.Element {
             case false:
                getEmissionData(inputStates)
                   .then(() => {
-                     setIsModalOpen(false)
+                     setIsModalOpen(false);
+                     if (isCompare) { setShowCompareCharts(true) }
                      navigate("/results");
                   });
                break;
@@ -88,7 +90,7 @@ export default function ModalIndex(): JSX.Element {
                }
                <div className="date--range">
                   <p>Pick the date Range</p>
-                  <ModalDatePickers />
+                  {!isCompare && <ModalDatePickers />}
                </div>
                <button onClick={() => {
                   handleInputs();

@@ -1,7 +1,7 @@
 import { atom, SetStateAction, useAtom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
-import { timeRangeOptions } from "../components/Charts/TotalDataChart/TotalDataChart";
-import { TimeRangeOptions } from "../interfaces/interfaces"
+import { timeRangeOptions } from "../utils/miscellaneous";
+import { TimeRangeOptions } from "../interfaces/interfaces";
 
 interface Atoms {
    isModalOpen: boolean,
@@ -9,7 +9,11 @@ interface Atoms {
    isCountrySearch: boolean | null,
    setIsCountrySearch: (update: SetStateAction<boolean | null>) => void,
    timeRange: TimeRangeOptions | null,
-   setTimeRange: (update: SetStateAction<TimeRangeOptions | null>) => void
+   setTimeRange: (update: SetStateAction<TimeRangeOptions | null>) => void,
+   isCompare: boolean,
+   setIsCompare: (update: SetStateAction<boolean>) => void,
+   showCompareCharts: boolean,
+   setShowCompareCharts: (update: SetStateAction<boolean>) => void
 }
 
 //Declaring Atoms
@@ -17,13 +21,18 @@ interface Atoms {
 const modalOpen = atom<boolean>(false);
 const searchType = atomWithStorage<boolean | null>('search-type', null);
 const range = atomWithStorage<TimeRangeOptions | null>('time-range', timeRangeOptions[0]);
-
+const compare = atom<boolean>(false);
+const showCompare = atom<boolean>(false);
 
 export default function useStateAtoms(): Atoms {
 
    const [isModalOpen, setIsModalOpen] = useAtom(modalOpen);
 
    const [isCountrySearch, setIsCountrySearch] = useAtom(searchType);
+
+   const [isCompare, setIsCompare] = useAtom(compare);
+
+   const [showCompareCharts, setShowCompareCharts] = useAtom(showCompare);
 
    const [timeRange, setTimeRange] = useAtom(range);
 
@@ -33,7 +42,11 @@ export default function useStateAtoms(): Atoms {
       isCountrySearch,
       setIsCountrySearch,
       timeRange,
-      setTimeRange
+      setTimeRange,
+      isCompare,
+      setIsCompare,
+      showCompareCharts,
+      setShowCompareCharts
    }
 }
 

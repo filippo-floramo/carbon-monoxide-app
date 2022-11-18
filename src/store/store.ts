@@ -14,6 +14,8 @@ import storage from 'redux-persist/lib/storage';
 import modalReducer from "./features/modalSlice";
 import mainChartReducer from "./features/mainChartSlice";
 import totalChartReducer from "./features/totalChartSlice";
+import compareMainChartReducer from "./features/compareMainChartSlice";
+import compareTotalChartReducer from "./features/compareTotalChartSlice";
 
 const persistConfig = {
    key: 'root',
@@ -25,15 +27,22 @@ const chartReducer = combineReducers({
    mainChart: mainChartReducer,
    totalChart: totalChartReducer
 })
+const persistedReducer = persistReducer(persistConfig, chartReducer);
 
 
-const persistedReducer = persistReducer(persistConfig, chartReducer)
+const compareChartReducers = combineReducers({
+   compareMainChart: compareMainChartReducer,
+   compareTotalChart: compareTotalChartReducer
+})
+
+
 
 export const store = configureStore({
    reducer: {
       [emissionAPI.reducerPath]: emissionAPI.reducer,
       input: modalReducer,
-      chart: persistedReducer
+      chart: persistedReducer,
+      compareChart: compareChartReducers
    },
 
    middleware: (getDefaultMiddleware) =>
