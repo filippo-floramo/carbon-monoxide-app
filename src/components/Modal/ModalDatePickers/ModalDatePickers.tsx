@@ -23,7 +23,7 @@ export default function ModalDatePickers(): JSX.Element {
          <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
                label="Start Date"
-               value={startDate}
+               value={startDate ? startDate : null}
                onChange={(newValue: DateTypes) => {
                   if (newValue) dispatch(addStartDate(newValue.toJSON()))
                }}
@@ -34,7 +34,7 @@ export default function ModalDatePickers(): JSX.Element {
          <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
                label="End Date"
-               value={endDate}
+               value={endDate ? endDate : null}
                onChange={(newValue: DateTypes) => {
                   if (newValue) dispatch(addEndDate(newValue.toJSON()))
                }}
