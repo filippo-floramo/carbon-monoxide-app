@@ -1,10 +1,9 @@
 import React from "react";
-import ModalIndex from "../../components/Modal/ModalIndex/ModalIndex";
 import useStateAtoms from "../../atoms/atoms";
 
 export default function Home(): JSX.Element {
 
-   const { isModalOpen, setIsCountrySearch, setIsModalOpen, setIsCompare } = useStateAtoms();
+   const { setIsCountrySearch, setIsModalOpen, setIsCompare } = useStateAtoms();
 
    return (
       <>
