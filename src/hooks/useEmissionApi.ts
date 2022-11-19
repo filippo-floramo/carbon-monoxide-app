@@ -1,23 +1,29 @@
+import { useState } from "react";
 import { useAppDispatch } from "../store/hooks";
 import { addMainChartData } from "../store/features/mainChartSlice";
 import { manageData } from "../utils/functions";
 import { addTotalChartData } from "../store/features/totalChartSlice";
 import { EmissionData } from "../interfaces/interfaces";
 import { InputTypes } from "../interfaces/interfaces";
-import useStateAtoms from "../atoms/atoms";
-import axios from "axios";
 import { addCompareMainChartData } from "../store/features/compareMainChartSlice";
 import { addCompareTotalChartData } from "../store/features/compareTotalChartSlice";
+import useStateAtoms from "../atoms/atoms";
+import axios from "axios";
 
 interface ApiTypes {
-   getEmissionData: (inputStates: InputTypes) => Promise<void>
+   getEmissionData: (inputStates: InputTypes) => Promise<void>,
+   isDataLoading: boolean
 }
 
 
 export function useEmissionApi(): ApiTypes {
 
    const { isCountrySearch, isCompare } = useStateAtoms();
+
+   const [isDataLoading, setIsDataLoading] = useState<boolean>(false);
+
    const dispatch = useAppDispatch();
+
    const currentDate = new Date().toJSON();
 
    //Remove the function parameter, use a selector to get all the values instead 
@@ -39,6 +45,8 @@ export function useEmissionApi(): ApiTypes {
       }
 
       try {
+         setIsDataLoading(true);
+
          const mainResponse = await axios.get<EmissionData[]>(searchDatahUrl);
          const totalResponse = await axios.get<EmissionData[]>(totalDataUrl);
 
@@ -50,16 +58,21 @@ export function useEmissionApi(): ApiTypes {
 
          if (isCompare) {
             dispatch(addCompareMainChartData(sortedMainData));
-            dispatch(addCompareTotalChartData(sortedTotalData))
+            dispatch(addCompareTotalChartData(sortedTotalData));
+
+            setIsDataLoading(false);
          } else {
             dispatch(addMainChartData(sortedMainData));
             dispatch(addTotalChartData(sortedTotalData));
+
+            setIsDataLoading(false);
          }
 
       } catch (error) {
-         console.error(error)
+         console.error(error);
+         setIsDataLoading(false);
       }
    }
 
-   return { getEmissionData }
+   return { getEmissionData, isDataLoading }
 }

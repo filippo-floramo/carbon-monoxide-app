@@ -13,7 +13,7 @@ const coordinatesRegExp: RegExp = /[a-z]+/ig;
 
 export default function ModalIndex(): JSX.Element {
 
-   const { getEmissionData } = useEmissionApi();
+   const { getEmissionData, isDataLoading } = useEmissionApi();
 
    const navigate = useNavigate();
 
@@ -27,6 +27,9 @@ export default function ModalIndex(): JSX.Element {
       startDate,
       endDate
    } = inputStates;
+
+
+   //This handler needs to be in its own custom hook
 
    const handleInputs = () => {
 
@@ -92,12 +95,15 @@ export default function ModalIndex(): JSX.Element {
                   <p>Pick the date Range</p>
                   {!isCompare && <ModalDatePickers />}
                </div>
-               <button onClick={() => {
-                  handleInputs();
-                  console.log(inputStates)
-               }}>
-                  Click Me
-               </button>
+               {isDataLoading ?
+                  <>Loading..</>
+                  :
+                  <button onClick={() => {
+                     handleInputs();
+                     console.log(inputStates)
+                  }}>
+                     Click Me
+                  </button>}
             </div>
          </div>
       </>
