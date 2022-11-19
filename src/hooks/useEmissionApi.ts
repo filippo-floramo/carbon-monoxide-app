@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAppDispatch } from "../store/hooks";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { addMainChartData } from "../store/features/mainChartSlice";
 import { manageData } from "../utils/functions";
 import { addTotalChartData } from "../store/features/totalChartSlice";
@@ -11,27 +11,26 @@ import useStateAtoms from "../atoms/atoms";
 import axios from "axios";
 
 interface ApiTypes {
-   getEmissionData: (inputStates: InputTypes) => Promise<void>,
+   getEmissionData: () => Promise<void>,
    isDataLoading: boolean
 }
 
 
 export function useEmissionApi(): ApiTypes {
 
-   const { isCountrySearch, isCompare } = useStateAtoms();
-
-   const [isDataLoading, setIsDataLoading] = useState<boolean>(false);
-
+   const currentDate = new Date().toJSON();
+   
    const dispatch = useAppDispatch();
 
-   const currentDate = new Date().toJSON();
+   const { isCountrySearch, isCompare } = useStateAtoms();
 
-   //Remove the function parameter, use a selector to get all the values instead 
+   const { countryCode, longitude, latitude, endDate, startDate } = useAppSelector((state) => state.input.value)
+   
+   const [isDataLoading, setIsDataLoading] = useState<boolean>(false);
 
-   const getEmissionData = async (inputStates: InputTypes) => {
 
+   const getEmissionData = async () => {
 
-      const { countryCode, longitude, latitude, endDate, startDate } = inputStates
 
       let searchDatahUrl: string;
       let totalDataUrl: string;

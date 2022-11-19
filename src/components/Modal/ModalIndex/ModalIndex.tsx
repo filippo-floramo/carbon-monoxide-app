@@ -45,7 +45,7 @@ export default function ModalIndex(): JSX.Element {
          alert("Please select and indication for the place")
       } else if (dateRange && countryCode) {
 
-         getEmissionData(inputStates)
+         getEmissionData()
             .then(() => {
                setIsModalOpen(false)
                if (isCompare) { setShowCompareCharts(true) }
@@ -61,7 +61,7 @@ export default function ModalIndex(): JSX.Element {
                alert("Values in the coordinate fields must be numbers");
                break;
             case false:
-               getEmissionData(inputStates)
+               getEmissionData()
                   .then(() => {
                      setIsModalOpen(false);
                      if (isCompare) { setShowCompareCharts(true) }
