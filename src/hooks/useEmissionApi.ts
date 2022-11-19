@@ -4,7 +4,6 @@ import { addMainChartData } from "../store/features/mainChartSlice";
 import { manageData } from "../utils/functions";
 import { addTotalChartData } from "../store/features/totalChartSlice";
 import { EmissionData } from "../interfaces/interfaces";
-import { InputTypes } from "../interfaces/interfaces";
 import { addCompareMainChartData } from "../store/features/compareMainChartSlice";
 import { addCompareTotalChartData } from "../store/features/compareTotalChartSlice";
 import useStateAtoms from "../atoms/atoms";
@@ -30,7 +29,6 @@ export function useEmissionApi(): ApiTypes {
 
 
    const getEmissionData = async () => {
-
 
       let searchDatahUrl: string;
       let totalDataUrl: string;

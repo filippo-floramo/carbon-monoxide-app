@@ -1,14 +1,12 @@
 import React from "react";
-import TextField from '@mui/material/TextField';
 import { addCoordinates } from "../../../store/features/modalSlice"
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { coordinatesRegExp } from "../../../utils/miscellaneous";
+import TextField from '@mui/material/TextField';
 
 
-interface TextFieldProps {
-   coordinatesRegExp: RegExp
-}
 
-export default function ModalTextFields({ coordinatesRegExp }: TextFieldProps): JSX.Element {
+export default function ModalTextFields(): JSX.Element {
 
    const dispatch = useAppDispatch();
 

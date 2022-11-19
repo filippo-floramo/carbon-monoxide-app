@@ -1,5 +1,8 @@
 import { TimeRangeOptions } from "../interfaces/interfaces"
 
+
+export const coordinatesRegExp: RegExp = /[a-z]+/ig;
+
 export const timeRangeOptions: TimeRangeOptions[] = [
    {
       value: 'whole_period',
@@ -31,3 +34,4 @@ export const timeRangeOptions: TimeRangeOptions[] = [
       amount: 1
    }
 ]
+

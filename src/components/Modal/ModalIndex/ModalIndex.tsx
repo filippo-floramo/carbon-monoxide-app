@@ -1,7 +1,7 @@
 import React from "react";
 import { useAppSelector } from "../../../store/hooks";
-import { useNavigate } from "react-router-dom";
 import { useEmissionApi } from "../../../hooks/useEmissionApi";
+import { useInputHandler } from "../../../hooks/useInputHandler";
 import useStateAtoms from "../../../atoms/atoms";
 import ModalSelect from "../ModalSelect/ModalSelect";
 import ModalTextFields from "../ModalTextFields/ModalTextFields";
@@ -9,68 +9,16 @@ import ModalDatePickers from "../ModalDatePickers/ModalDatePickers";
 import ModalCloseButton from "../ModalCloseButton/ModalCloseButton";
 
 
-const coordinatesRegExp: RegExp = /[a-z]+/ig;
-
 export default function ModalIndex(): JSX.Element {
 
-   const { getEmissionData, isDataLoading } = useEmissionApi();
+   const { handleInputs } = useInputHandler();
 
-   const navigate = useNavigate();
+   const { isDataLoading } = useEmissionApi();
 
-   const { setIsModalOpen, isCountrySearch, isCompare, setShowCompareCharts } = useStateAtoms();
+   const { isCountrySearch, isCompare } = useStateAtoms();
 
    const inputStates = useAppSelector((state) => state.input.value);
-   const {
-      countryCode,
-      longitude,
-      latitude,
-      startDate,
-      endDate
-   } = inputStates;
 
-
-   //This handler needs to be in its own custom hook
-
-   const handleInputs = () => {
-
-      const dateRange = startDate && endDate;
-      const areAllFalsy = Object.values(inputStates).every(value => !value);
-      console.log(areAllFalsy);
-
-      if (areAllFalsy) {
-         alert("Please fill the required fields")
-      } else if (!(dateRange)) {
-         alert("Please choose the date range")
-      } else if (dateRange && !(countryCode || (longitude && latitude))) {
-         alert("Please select and indication for the place")
-      } else if (dateRange && countryCode) {
-
-         getEmissionData()
-            .then(() => {
-               setIsModalOpen(false)
-               if (isCompare) { setShowCompareCharts(true) }
-               navigate("/results");
-            });
-      } else if (dateRange && (longitude && latitude)) {
-
-         const latitudeIsNotValid = coordinatesRegExp.test(latitude);
-         const longitudeIsNotValid = coordinatesRegExp.test(longitude);
-
-         switch (longitudeIsNotValid || latitudeIsNotValid) {
-            case true:
-               alert("Values in the coordinate fields must be numbers");
-               break;
-            case false:
-               getEmissionData()
-                  .then(() => {
-                     setIsModalOpen(false);
-                     if (isCompare) { setShowCompareCharts(true) }
-                     navigate("/results");
-                  });
-               break;
-         }
-      }
-   }
 
    return (
       <>
@@ -88,7 +36,7 @@ export default function ModalIndex(): JSX.Element {
                      :
                      <div className="coordinates">
                         <p> Coordinates</p>
-                        <ModalTextFields coordinatesRegExp={coordinatesRegExp} />
+                        <ModalTextFields  />
                      </div>
                }
                <div className="date--range">
