@@ -19,7 +19,9 @@ export default function ModalDatePickers(): JSX.Element {
    const dispatch = useAppDispatch();
 
    return (
-      <>
+      <div className="date--range">
+         <p>Pick the date Range</p>
+
          <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
                label="Start Date"
@@ -41,6 +43,6 @@ export default function ModalDatePickers(): JSX.Element {
                renderInput={(params) => <TextField {...params} />}
             />
          </LocalizationProvider>
-      </>
+      </div>
    )
 }

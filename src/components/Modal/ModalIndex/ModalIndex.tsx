@@ -19,21 +19,11 @@ export default function ModalIndex(): JSX.Element {
                <h1>Choose where and when.</h1>
                {
                   isCountrySearch ?
-
-                     <div className="select">
-                        <p>Country</p>
-                        <ModalSelect />
-                     </div>
+                     <ModalSelect />
                      :
-                     <div className="coordinates">
-                        <p> Coordinates</p>
-                        <ModalTextFields />
-                     </div>
+                     <ModalTextFields />
                }
-               <div className="date--range">
-                  <p>Pick the date Range</p>
                   <ModalDatePickers />
-               </div>
                <ModalSearchButton />
             </div>
          </div>

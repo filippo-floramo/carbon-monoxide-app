@@ -13,7 +13,10 @@ export default function ModalTextFields(): JSX.Element {
    const { latitude, longitude } = useAppSelector((state) => state.input.value);
 
    return (
-      <>
+      <div className="coordinates">
+
+         <p> Coordinates</p>
+
          <TextField
             id="latitude"
             placeholder="Latitude"
@@ -38,6 +41,6 @@ export default function ModalTextFields(): JSX.Element {
                dispatch(addCoordinates({ id: e.target.id, value: e.target.value }));
             }}
          />
-      </>
+      </div>
    )
 }

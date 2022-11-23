@@ -33,18 +33,22 @@ export default function ModalSelect(): JSX.Element {
    });
 
    return (
-      <Select
-         name="country"
-         classNamePrefix="select"
-         className="country--select"
-         placeholder="Select a country..."
-         onChange={(country: SelectTypes) => {
-            if (country) {
-               dispatch(addCountryCode(country.value));
-            }
-         }}
-         isSearchable={true}
-         options={countryOptions}
-      />
+      <div className="select">
+         <p>Country</p>
+
+         <Select
+            name="country"
+            classNamePrefix="select"
+            className="country--select"
+            placeholder="Select a country..."
+            onChange={(country: SelectTypes) => {
+               if (country) {
+                  dispatch(addCountryCode(country.value));
+               }
+            }}
+            isSearchable={true}
+            options={countryOptions}
+         />
+      </div>
    )
 }
