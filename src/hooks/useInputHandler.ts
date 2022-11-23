@@ -13,7 +13,7 @@ export function useInputHandler() {
 
    const { getEmissionData } = useEmissionApi();
 
-   const { setIsModalOpen, isCompare, setShowCompareCharts } = useStateAtoms();
+   const { setIsModalOpen } = useStateAtoms();
 
    const inputStates = useAppSelector((state) => state.input.value);
    const {
@@ -42,7 +42,6 @@ export function useInputHandler() {
          getEmissionData()
             .then(() => {
                setIsModalOpen(false)
-               if (isCompare) { setShowCompareCharts(true) }
                navigate("/results");
             });
 
@@ -59,7 +58,6 @@ export function useInputHandler() {
                getEmissionData()
                   .then(() => {
                      setIsModalOpen(false);
-                     if (isCompare) { setShowCompareCharts(true) }
                      navigate("/results");
                   });
                break;

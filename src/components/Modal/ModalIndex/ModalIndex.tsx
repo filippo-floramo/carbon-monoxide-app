@@ -1,24 +1,15 @@
 import React from "react";
-import { useAppSelector } from "../../../store/hooks";
-import { useEmissionApi } from "../../../hooks/useEmissionApi";
-import { useInputHandler } from "../../../hooks/useInputHandler";
 import useStateAtoms from "../../../atoms/atoms";
 import ModalSelect from "../ModalSelect/ModalSelect";
 import ModalTextFields from "../ModalTextFields/ModalTextFields";
 import ModalDatePickers from "../ModalDatePickers/ModalDatePickers";
 import ModalCloseButton from "../ModalCloseButton/ModalCloseButton";
+import ModalSearchButton from "../ModalSearchButton/ModalSearchButton";
 
 
 export default function ModalIndex(): JSX.Element {
 
-   const { handleInputs } = useInputHandler();
-
-   const { isDataLoading } = useEmissionApi();
-
-   const { isCountrySearch, isCompare } = useStateAtoms();
-
-   const inputStates = useAppSelector((state) => state.input.value);
-
+   const { isCountrySearch } = useStateAtoms();
 
    return (
       <>
@@ -36,22 +27,14 @@ export default function ModalIndex(): JSX.Element {
                      :
                      <div className="coordinates">
                         <p> Coordinates</p>
-                        <ModalTextFields  />
+                        <ModalTextFields />
                      </div>
                }
                <div className="date--range">
                   <p>Pick the date Range</p>
-                  {!isCompare && <ModalDatePickers />}
+                  <ModalDatePickers />
                </div>
-               {isDataLoading ?
-                  <>Loading..</>
-                  :
-                  <button onClick={() => {
-                     handleInputs();
-                     console.log(inputStates)
-                  }}>
-                     Click Me
-                  </button>}
+               <ModalSearchButton />
             </div>
          </div>
       </>

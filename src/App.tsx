@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Results from "./pages/Results/Results";
-import "./App.scss";
+import "./styles/App.scss";
 import ModalIndex from "./components/Modal/ModalIndex/ModalIndex";
 import useStateAtoms from "./atoms/atoms";
 

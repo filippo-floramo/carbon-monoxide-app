@@ -1,8 +1,8 @@
 @import url("https://use.typekit.net/mkk8dya.css");
-@import "pages/Home/home";
-@import "pages/Results/results";
-@import "components/Modal/ModalIndex//modal-index";
-@import "components/Modal/ModalCloseButton/modal-close-button";
+@import "../pages/Home/home";
+@import "../pages/Results/results";
+@import "../components/Modal/ModalIndex//modal-index";
+@import "../components/Modal/ModalCloseButton/modal-close-button";
 
 * {
   margin: 0;

@@ -1,11 +1,9 @@
-import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { addMainChartData } from "../store/features/mainChartSlice";
 import { manageData } from "../utils/functions";
 import { addTotalChartData } from "../store/features/totalChartSlice";
 import { EmissionData } from "../interfaces/interfaces";
-import { addCompareMainChartData } from "../store/features/compareMainChartSlice";
-import { addCompareTotalChartData } from "../store/features/compareTotalChartSlice";
+import { atom, useAtom } from "jotai";
 import useStateAtoms from "../atoms/atoms";
 import axios from "axios";
 
@@ -14,18 +12,19 @@ interface ApiTypes {
    isDataLoading: boolean
 }
 
+const DataLoading = atom<boolean>(false);
 
 export function useEmissionApi(): ApiTypes {
 
    const currentDate = new Date().toJSON();
-   
+
    const dispatch = useAppDispatch();
 
-   const { isCountrySearch, isCompare } = useStateAtoms();
+   const { isCountrySearch } = useStateAtoms();
+   const [isDataLoading, setIsDataLoading] = useAtom(DataLoading);
 
    const { countryCode, longitude, latitude, endDate, startDate } = useAppSelector((state) => state.input.value)
-   
-   const [isDataLoading, setIsDataLoading] = useState<boolean>(false);
+
 
 
    const getEmissionData = async () => {
@@ -40,10 +39,10 @@ export function useEmissionApi(): ApiTypes {
          searchDatahUrl = `https://api.v2.emissions-api.org/api/v2/carbonmonoxide/average.json?point=${longitude}&point=${latitude}&begin=${startDate}&end=${endDate}&offset=0`;
          totalDataUrl = `https://api.v2.emissions-api.org/api/v2/carbonmonoxide/average.json?point=${longitude}&point=${latitude}&begin=2019-01-01&end=${currentDate}&offset=0`;
       }
-
+      
       try {
          setIsDataLoading(true);
-
+         
          const mainResponse = await axios.get<EmissionData[]>(searchDatahUrl);
          const totalResponse = await axios.get<EmissionData[]>(totalDataUrl);
 
@@ -53,18 +52,10 @@ export function useEmissionApi(): ApiTypes {
          const sortedMainData = manageData(mainData);
          const sortedTotalData = manageData(totalData);
 
-         if (isCompare) {
-            dispatch(addCompareMainChartData(sortedMainData));
-            dispatch(addCompareTotalChartData(sortedTotalData));
+         dispatch(addMainChartData(sortedMainData));
+         dispatch(addTotalChartData(sortedTotalData));
 
-            setIsDataLoading(false);
-         } else {
-            dispatch(addMainChartData(sortedMainData));
-            dispatch(addTotalChartData(sortedTotalData));
-
-            setIsDataLoading(false);
-         }
-
+         setIsDataLoading(false);
       } catch (error) {
          console.error(error);
          setIsDataLoading(false);
