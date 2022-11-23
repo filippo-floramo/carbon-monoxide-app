@@ -26,7 +26,6 @@ export function useEmissionApi(): ApiTypes {
    const { countryCode, longitude, latitude, endDate, startDate } = useAppSelector((state) => state.input.value)
 
 
-
    const getEmissionData = async () => {
 
       let searchDatahUrl: string;
@@ -42,7 +41,7 @@ export function useEmissionApi(): ApiTypes {
       
       try {
          setIsDataLoading(true);
-         
+
          const mainResponse = await axios.get<EmissionData[]>(searchDatahUrl);
          const totalResponse = await axios.get<EmissionData[]>(totalDataUrl);
 

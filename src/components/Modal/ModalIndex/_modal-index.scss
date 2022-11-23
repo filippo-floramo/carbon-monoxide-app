@@ -19,43 +19,5 @@
       height: 700px;
       padding: 50px;
       background-color: white;
-
-      .select {
-
-         .country--select {
-            min-width: 200px;
-            z-index: 30;
-
-            .select__control {
-               height: 50px;
-            }
-         }
-
-         p {
-            text-align: center;
-         }
-      }
-
-      .coordinates {
-         display: flex;
-         gap: 20px;
-         width: 100%;
-         flex-direction: column;
-
-         p {
-            text-align: center;
-         }
-      }
-
-      .date--range {
-         gap: 20px;
-         display: flex;
-         flex-direction: column;
-
-         p {
-            text-align: center;
-         }
-      }
-
    }
 }

@@ -1,9 +1,6 @@
 import { useEmissionApi } from "../../../hooks/useEmissionApi";
 import { useInputHandler } from "../../../hooks/useInputHandler";
 
-export const lol = "l";
-
-
 
 
 

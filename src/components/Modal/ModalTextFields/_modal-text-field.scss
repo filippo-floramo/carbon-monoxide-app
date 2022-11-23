@@ -1,0 +1,10 @@
+.coordinates {
+   display: flex;
+   gap: 20px;
+   width: 100%;
+   flex-direction: column;
+
+   p {
+      text-align: center;
+   }
+}

@@ -3,6 +3,9 @@
 @import "../pages/Results/results";
 @import "../components/Modal/ModalIndex//modal-index";
 @import "../components/Modal/ModalCloseButton/modal-close-button";
+@import"../components/Modal/ModalDatePickers/modal-datepickers";
+@import"../components/Modal/ModalTextFields/modal-text-field";
+@import"../components/Modal/ModalSelect/modal-select";
 
 * {
   margin: 0;
