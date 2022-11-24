@@ -1,17 +1,16 @@
 import React from "react";
-import useStateAtoms from "../../atoms/atoms";
+import { useNavigate } from "react-router-dom";
 
 export default function Home(): JSX.Element {
 
-   const { setIsCountrySearch, setIsModalOpen } = useStateAtoms();
+   const navigate = useNavigate();
 
    return (
       <>
          <div className="home">
             <h1>Hello Project</h1>
             <div className="search--buttons">
-               <button onClick={() => { setIsCountrySearch(true); setIsModalOpen(true); }}>Search by Country</button>
-               <button onClick={() => { setIsCountrySearch(false); setIsModalOpen(true); }}>Search by Coordinates</button>
+               <button onClick={() => navigate("/search")}>Search</button>
             </div>
          </div>
       </>

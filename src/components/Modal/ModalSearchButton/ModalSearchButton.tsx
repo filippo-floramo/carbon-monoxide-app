@@ -1,13 +1,16 @@
 import { useEmissionApi } from "../../../hooks/useEmissionApi";
 import { useInputHandler } from "../../../hooks/useInputHandler";
+import { useAppSelector } from "../../../store/hooks";
 
 
 
 
-export default function ModalSearchButton() {
+export default function ModalSearchButton(): JSX.Element {
 
    const { isDataLoading } = useEmissionApi();
    const { handleInputs } = useInputHandler();
+   const allvalues = useAppSelector((state) => state.input.value)
+
    return (
       <>
          {
@@ -16,6 +19,7 @@ export default function ModalSearchButton() {
                :
                <button onClick={() => {
                   handleInputs();
+                  console.table(allvalues)
                }}>
                   Click Me
                </button>

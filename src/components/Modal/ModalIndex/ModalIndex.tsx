@@ -23,7 +23,7 @@ export default function ModalIndex(): JSX.Element {
                      :
                      <ModalTextFields />
                }
-                  <ModalDatePickers />
+               <ModalDatePickers />
                <ModalSearchButton />
             </div>
          </div>

@@ -1,0 +1,22 @@
+.search {
+
+   height: 100vh;
+   overflow-x: hidden;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+
+   &--buttons {
+      width: 50%;
+
+      display: flex;
+      justify-content: space-around;
+
+      button {
+         width: 200px;
+         height: 60px;
+         cursor: pointer;
+      }
+   }
+}
