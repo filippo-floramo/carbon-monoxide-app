@@ -1,6 +1,9 @@
 @import url("https://use.typekit.net/mkk8dya.css");
 @import "config";
+@import "../components/Navbar/navbar";
+@import"../components/FloatingButton/float-button";
 @import "../pages/Home/home";
+@import "../pages/About/about";
 @import "../pages/Results/results";
 @import "../pages/Search/search";
 @import "../components/Modal/ModalIndex//modal-index";

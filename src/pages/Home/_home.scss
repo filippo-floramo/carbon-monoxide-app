@@ -5,18 +5,45 @@
    flex-direction: column;
    justify-content: center;
    align-items: center;
+   background-color: darkslategrey;
 
+   &--text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 800px;
+      height: 120px;
+      margin-bottom: 30px;
+   }
 
-   .search--buttons {
+   &--buttons {
       width: 50%;
 
       display: flex;
       justify-content: space-around;
 
-      button {
-         width: 200px;
+      .home--btn {
          height: 60px;
+         width: 200px;
+         border-radius: 20px;
+         background-color: orangered;
+         border: none;
+         font-family: "source-sans-pro";
+         font-size: 1.2rem;
+         font-weight: 600;
+
          cursor: pointer;
+      }
+
+      .search--btn {
+         color: white;
+      }
+
+      .about--btn {
+         border: 3px solid orangered;
+         background-color: white;
+         color: red;
       }
    }
 }

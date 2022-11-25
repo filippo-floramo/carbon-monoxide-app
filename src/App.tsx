@@ -1,6 +1,8 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar/Navabar";
 import Home from "./pages/Home/Home";
+import About from "./pages/About/About";
 import Results from "./pages/Results/Results";
 import Search from "./pages/Search/Search";
 import ModalIndex from "./components/Modal/ModalIndex/ModalIndex";
@@ -13,11 +15,13 @@ function App(): JSX.Element {
 
   return (
     <>
+      <Navbar />
       {isModalOpen && <ModalIndex />}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/results" element={<Results />} />
+        <Route path="/about" element={<About />} />
         <Route path="/search" element={<Search />} />
+        <Route path="/results" element={<Results />} />
       </Routes>
     </>
   )

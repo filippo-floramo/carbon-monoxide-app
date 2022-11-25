@@ -8,9 +8,11 @@ export default function Search(): JSX.Element {
 
    return (
       <div className="search">
+         <h1 className="search--cta">Search by:</h1>
          <div className="search--buttons">
-            <button onClick={() => { setIsCountrySearch(true); setIsModalOpen(true); }}>Search by Country</button>
-            <button onClick={() => { setIsCountrySearch(false); setIsModalOpen(true); }}>Search by Coordinates</button>
+            <button className="search--btn country--btn" onClick={() => { setIsCountrySearch(true); setIsModalOpen(true); }}>Country</button>
+            <p>or</p>
+            <button className="search--btn coordinates--btn" onClick={() => { setIsCountrySearch(false); setIsModalOpen(true); }}>Coordinates</button>
          </div>
       </div>
    )

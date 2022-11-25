@@ -8,9 +8,15 @@ export default function Home(): JSX.Element {
    return (
       <>
          <div className="home">
-            <h1>Hello Project</h1>
-            <div className="search--buttons">
-               <button onClick={() => navigate("/search")}>Search</button>
+            <div className="home--text">
+               <h1>This is the app</h1>
+               <p>
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dignissimos, provident adipisci veritatis omnis doloribus a! Ex reprehenderit quasi optio. Ullam?
+               </p>
+            </div>
+            <div className="home--buttons">
+               <button className="home--btn search--btn" onClick={() => navigate("/search")}>Search</button>
+               <button className="home--btn about--btn" onClick={() => navigate("/about")}>About</button>
             </div>
          </div>
       </>
