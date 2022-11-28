@@ -16,7 +16,6 @@ function App(): JSX.Element {
   return (
     <>
       <Navbar />
-      {isModalOpen && <ModalIndex />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
