@@ -22,7 +22,7 @@ export default function ModalSelect(): JSX.Element {
       const filteredCountryCodes: string[] = Object.keys(data || []).filter((key) => {
          return key.length <= 2
       });
-      
+
       const options: SelectTypes[] = filteredCountryCodes.map((key) => {
          if (data) {
             return { label: (data)[key], value: key }
@@ -51,9 +51,7 @@ export default function ModalSelect(): JSX.Element {
             className="country--select"
             placeholder="Select a country..."
             onChange={(country) => {
-               if (country) {
-                  dispatch(addCountryCode(country.value));
-               }
+               dispatch(addCountryCode(country?.value));
             }}
             isSearchable={true}
             options={countryOptions}
