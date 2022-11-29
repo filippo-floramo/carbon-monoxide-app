@@ -4,6 +4,8 @@ import { EmissionData } from "../../../interfaces/interfaces";
 import { getDates } from "../../../utils/functions";
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { timeRangeOptions } from "../../../utils/miscellaneous";
+import ChartContainer from "../ChartContainer/ChartContainer";
+import ChartCounter from "../ChartCounter/ChartCounter";
 import useStateAtoms from "../../../atoms/atoms";
 import Select from "react-select";
 
@@ -34,8 +36,10 @@ export default function TotalDataChart(): JSX.Element {
 
    console.log("rirendererojeroieio")
 
+
    return (
-      <>
+      <ChartContainer>
+         <ChartCounter  data={selectableData}/>
          <ResponsiveContainer height={300} width="90%" >
             <LineChart width={600} height={300} data={selectableData} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
                <Line
@@ -59,6 +63,6 @@ export default function TotalDataChart(): JSX.Element {
             isClearable={false}
             isSearchable={false}
          />
-      </>
+      </ChartContainer>
    )
 }

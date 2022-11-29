@@ -11,7 +11,6 @@ export default function FloatingSearchButton() {
          <button
             className="float--button"
             onClick={() => navigate('/search')}
-
          >
             Search
          </button>

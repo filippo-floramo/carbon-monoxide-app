@@ -4,7 +4,6 @@ import TotalDataChart from "../../components/Charts/TotalDataChart/TotalDataChar
 import FloatingSearchButton from "../../components/FloatingButton/FloatingSearchButton";
 
 
-
 export default function Results(): JSX.Element {
 
 
@@ -13,7 +12,7 @@ export default function Results(): JSX.Element {
          <div className="results">
             <MainChart />
             <TotalDataChart />
-            <FloatingSearchButton/>
+            <FloatingSearchButton />
          </div>
       </>
    )
