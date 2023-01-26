@@ -4,5 +4,4 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## ***Under Development***
 
-This project is still under development.
-The goal is to create an app that displays the level of carbon monoxide all around the world.
+Development on this repo is now discontinued, I migrated the project to [this repo](https://github.com/filippo-floramo/emission-s2i), rebuilding it with Next.js
